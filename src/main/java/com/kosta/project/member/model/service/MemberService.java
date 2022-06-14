@@ -20,4 +20,11 @@ public class MemberService {
 		return memberDAO.selectByNick(nickName);
 	}
 	
+	public int updateMember(Member member) {
+		return memberDAO.updateMember(member);
+	}
+
+	public int delete(String userId) {
+		return memberDAO.delete(userId);
+	}
 }
