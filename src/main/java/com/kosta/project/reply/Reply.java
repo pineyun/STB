@@ -24,6 +24,19 @@ public class Reply {
 	
 	
 	
+	
+	
+	public Reply(int product_ID, String user_ID, String reply_CONTENT) {
+		super();
+		this.product_ID = product_ID;
+		this.user_ID = user_ID;
+		this.reply_CONTENT = reply_CONTENT;
+	}
+
+
+
+
+
 	public Reply() {
 		super();
 	}

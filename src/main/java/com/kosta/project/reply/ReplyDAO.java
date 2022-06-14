@@ -70,7 +70,7 @@ public class ReplyDAO {
 		return replyList;
 	}
 
-	public Reply writeReply(Reply reply) {
+	public int writeReply(Reply reply) {
 
 		Connection connection = null;
 		pst = null;
@@ -81,11 +81,7 @@ public class ReplyDAO {
 			pst.setInt(1, reply.getProduct_ID());
 			pst.setString(2, reply.getUser_ID());
 			pst.setString(3, reply.getReply_CONTENT());
-	
-			result = pst.executeUpdate();
-
-			
-
+			return result = pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -100,7 +96,7 @@ public class ReplyDAO {
 				e2.printStackTrace();
 			}
 		}
-		return reply;
+		return -1;
 	}
 
 }

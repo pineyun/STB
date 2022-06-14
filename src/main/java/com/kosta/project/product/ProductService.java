@@ -5,9 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.kosta.project.product.vo.CategoryVO;
+import com.kosta.project.reply.Reply;
+import com.kosta.project.reply.ReplyDAO;
 
 public class ProductService {
 	ProductDAO productDAO = new ProductDAO();
+	ReplyDAO replyDAO = new ReplyDAO();
 
 	/*
 	 * //상품 전체 public List<Product> listProduct(){ List<Product> productList =
@@ -44,6 +47,10 @@ public class ProductService {
 		Product viewProduct = productDAO.selectProductById(productId);
 		return viewProduct;
 
+	}
+	
+	public int insertReply(Reply reply) {
+		return replyDAO.writeReply(reply);
 	}
 
 }

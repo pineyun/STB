@@ -90,6 +90,7 @@
 								<div class="font-italic">
 									작성자 : ${reply.user_ID} <br /> ${reply.reply_DATE} &nbsp;
 								</div>
+								<c:set  target="${loginMember}" property="userId"></c:set>
 								<c:if test="${productView.userId == principal.user.id}">
 									<button onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
 										class="btn btn-warning badge">삭제</button>
@@ -104,36 +105,34 @@
 	
 <!-- 	<script src="../../js/board.js"></script>
  -->
- <script>
- $("#btn-reply").on('click', function() {
-	 let data = {
+<script>
+$("#btn-reply").on('click', function() {
+	 let data2 = {
 		userId: $("#userId").val(),
 		boardId: $("#boardId").val(),
 		content: $("#reply-content").val()
 		
-    };
+   };
 	console.log(data);
 	if($("#reply-content").val().trim() === ""){
 			
-    		alert("댓글을 입력하세요.");
-    		$("#reply-content").val("").focus();
-    }else{
-    $.ajax({
-        type: "POST",
-        url: "${contextPath}/writeReply.do",
-        data: JSON.stringify(data),
-        contentType:"application/json; charset=utf-8",
-        dataType:"json"
-    }).done(function(resp){
-        alert("글쓰기가 완료되었습니다.");
-        location.href="/";
-
-    }).fail(function(error){
-        alert(JSON.stringify(error));
-    });
-    }
+   		alert("댓글을 입력하세요.");
+   		$("#reply-content").val("").focus();
+   }else{
+   $.ajax({
+       type: "POST",
+       url: "${contextPath}/writeReply.do",
+       contentType : false,
+       processData : false,    
+       data: data2,
+       success: function(){
+    	   alert("댓글 등록 완료");
+       }
+   });
+   }
 });
- </script>
+
+</script>
 
 </body>
 </html>
