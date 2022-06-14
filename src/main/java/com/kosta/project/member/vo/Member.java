@@ -14,6 +14,9 @@ public Member() {
 	super();
 	// TODO Auto-generated constructor stub
 }
+public Member(String userId, String phone) {
+	
+}
 public Member(String userId, String userName, String userPassword, String nickName, Date signDate, String phone,
 		String userRole) {
 	super();
