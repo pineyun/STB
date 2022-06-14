@@ -45,15 +45,15 @@ public class MemberLoginController extends HttpServlet {
 
 		if (member != null && password.equals(member.getUserPassword())) {
 			session.removeAttribute("msg");
-		//System.out.println("ì—¬ê¸°ì„œì°ì—ˆì”ë‹ˆë‹¤ : " + member);
-		//session.setAttribute("msg", "ë¡œê·¸ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.");			
+		//System.out.println("¿©±â¼­Âï¾ú¾¹´Ï´Ù : " + member);
+		//session.setAttribute("msg", "·Î±×ÀÎµÇ¾ú½À´Ï´Ù.");			
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 		}
 
 		else if (member == null || !password.equals(member.getUserPassword())) {
 
-			session.setAttribute("msg", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			session.setAttribute("msg", "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
 		
 			String location = request.getContextPath() + "/jsp/login.jsp";
 			response.sendRedirect(location);

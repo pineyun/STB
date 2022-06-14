@@ -20,13 +20,13 @@ public class MemberJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ÏàòÏ†ïÌïòÍ∏∞
+		//ºˆ¡§«œ±‚
 		request.setCharacterEncoding("utf-8");
 		Member member = makeEmp(request);
 		MemberService service = new MemberService();
 		int result = service.insertMember(member);
 		String path = request.getContextPath();
-//		String msg = result>0 ? "Í∞ÄÏûÖÏùÑ ÌôòÏòÅÌï©ÎãàÎã§.!": "Í∞ÄÏûÖÏóê Ïã§Ìå®ÌïòÏÖ®ÏäµÎãàÎã§.";
+//		String msg = result>0 ? "∞°¿‘¿ª »Øøµ«’¥œ¥Ÿ.!": "∞°¿‘ø° Ω«∆–«œºÃΩ¿¥œ¥Ÿ.";
 //		request.setAttribute("message", msg);
 
 		response.sendRedirect(path+"/jsp/login.jsp");
@@ -35,15 +35,23 @@ public class MemberJoinController extends HttpServlet {
 	
 	private Member makeEmp(HttpServletRequest request) {
 		Member emp = new Member();
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		String uId= request.getParameter("userId");
+		String emailId = request.getParameter("emailId");
+		String userId = uId.concat(emailId);
+		System.out.println(emailId);
 		String userName = request.getParameter("userName");
 		System.out.println(userName);
 		String userPassword = request.getParameter("userPassword");
 		System.out.println(userPassword);
 		String nickName = request.getParameter("nickName");
 		System.out.println(nickName);
-		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone1");
+		String phone3 = request.getParameter("phone1");
+		String phone4 = phone1.concat(phone2);
+		String phone = phone4.concat(phone3);
+		
+		
 		System.out.println(phone);
 		
 		emp.setUserId(userId);

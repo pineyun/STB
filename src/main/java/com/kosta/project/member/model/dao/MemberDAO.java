@@ -25,11 +25,11 @@ public class MemberDAO {
 	public Member selectByNick(String nickName) {
 		Member member = null;
 		conn = DBUtil.getConnection();
-		System.out.println("ì»¤ë„¥ì…˜3"+conn);
+		System.out.println("Ä¿³Ø¼Ç3"+conn);
 		try {
 			pst = conn.prepareStatement(SQL_SELECT_NICK);
 			pst.setString(1, nickName);
-			System.out.println("ë‹‰ë„¤ìž„" + nickName);
+			System.out.println("´Ð³×ÀÓ" + nickName);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				member = makeEmp(rs);

@@ -13,8 +13,25 @@
 <link rel=stylesheet href="../css/common.css?after">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- 
-</head>
+ <script type="text/javascript">
+
+  var naver_id_login = new naver_id_login("eqagp0fQve1EtqpGZsux");
+  // 접근 토큰 값 출력
+  alert(naver_id_login.oauthParams.access_token);
+  // 네이버 사용자 프로필 조회
+  naver_id_login.get_naver_userprofile("naverSignInCallback()",);
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  function naverSignInCallback() {
+	email = naver_id_login.getProfileData('email');
+    alert(naver_id_login.getProfileData('email'));
+    alert(naver_id_login.getProfileData('nickname'));
+  	window.close();
+  	
+    top.opener.location.href="http://localhost:9090/STB/jsp/index.jsp";
+
+  }
+</script>
+</head> 
 <body>
 	<div id="wrap">
 		<%-- <%@ include file="/jsp/header.jsp"%> --%>

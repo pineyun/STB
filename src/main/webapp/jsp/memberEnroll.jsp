@@ -40,54 +40,72 @@
       -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
     }
+    
+    #phone{
+    hr-sect:after;
+    
+    }
   </style>
+
+<
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+  
+  
+  
 </head>
 
 <body>
+
   <div class="container">
-       
-       
-       
-      
-  
-  
   
     <div class="input-form-backgroud row">
-      <div class="input-form col-md-12 mx-auto">
+      <div class="input-form col-md-12 mx-auto" >
         <h4 class="mb-3">회원가입</h4>
         <c:set var= "path" value="${pageContext.request.contextPath }"/>
         <form class="validation-form" method="post" action="${path}/member/memberEnroll" novalidate>
-        
-         <div class="mb-3">
-            <label for="email">아이디</label>
-            <input type="email" class="form-control" id="userId" name="userId" placeholder="이메일형식" required >@
-            <select id="select" class="form-control" id="userId">
+         <div class="mb-3" >
+		<label for="email"  >아이디</label> 
+			<table>
+            <input type ="button" style="padding:1px 1px; font-size:15px;" onclick="checkIdDuplicate();" value="중복체크" >
+			<tr>            
+           <td> 
+           <input type="text" class="form-control" id="userId" name="userId" placeholder="이메일형식" style="width:150px;height:30px;"  required >
+           </td>
+          	<td>@</td> 
+          <td>	
+           <select id="select" class="form-control" id="textEmail" name="emailId" style= width:150px;height:30px;>
             <option value="" disabled selected>E-Mail 선택</option>
-            <option value="naver.com" id="naver.com">naver.com</option>
-            <option value="hanmail.net" id="hanmail.net">hanmail.net</option>
-            <option value="gmail.com" id="gmail.com">gmail.com</option>
-            <option value="nate.com" id="nate.com">nate.com</option>
-            <option value="directly" id="textEmail">직접 입력하기</option>
-        </select>
+            <option value="@naver.com" id="naver.com">naver.com</option>
+            <option value="@hanmail.net" id="hanmail.net">hanmail.net</option>
+            <option value="@gmail.com" id="gmail.com">gmail.com</option>
+            <option value="@nate.com" id="nate.com">nate.com</option>
+            <option value="@directly" id="textEmail">직접 입력하기</option>
+         </select>
+         		</td>
+         	</tr>
+         </table>
             <div class="invalid-feedback">
               이메일을 입력해주세요.
             </div>
           </div>
        
-          <div class="row">
+          <div class="row" style="display:block;">
             <div class="col-md-6 mb-3">
               <label for="name">이름</label>
-              <input type="text" class="form-control" id="userName" name="userName" placeholder="" value="" required>
+              <input type="text" class="form-control" id="userName" name="userName"  style="width:150px;height:30px;"placeholder="" value="" required>
               <div class="invalid-feedback">
                 이름을 입력해주세요.
               </div>
             </div>
             
+            
             <div class="col-md-6 mb-3">
               <label for="nickname">별명</label>
-              <input type ="button"style="padding:1px 1px; font-size:15px;" id="duplicateCheckBtn" value="중복체크">
+              <input type ="button"style="padding:1px 1px; font-size:15px;" id="duplicateCheckBtn" value="중복체크" >
               <span id="message"></span>
-              <input type="text" class="form-control" id="nickName" name="nickName" placeholder="" value="" required>
+              <input type="text" class="form-control" id="nickName" name="nickName" placeholder="" value=""style="width:150px;height:30px;"maxlength="5" required>
               <div class="invalid-feedback">
                 별명을 입력해주세요.
               </div>
@@ -96,27 +114,29 @@
 
     
 
-          <div class="mb-3">
+          <div class="mb-3" style="position:block">
             <label for="password">비밀번호</label>
-            <input type="password" class="form-control" id="userPassword" name="userPassword"  required>
+            <input type="password" class="form-control" id="userPassword" name="userPassword" style="width:150px;height:30px;" maxlength="13" required>
+            <label for="password">비밀번호확인</label>
+            <input type="password" class="form-control" id="userPassword" name="userPassword"  style="width:150px;height:30px;" maxlength="13" placeholder="한번더 입력 하세요.;" required>
+           
             <div class="invalid-feedback">
        
             </div>
           </div>
 
 		<div>
-		<label for="phone" >휴대폰번호</label>
-		<input type="text" id="phone" name="phone" class="form-control" style="width:100px;height:30px;font-size:30px; display:inline-block;margin-left:10px; ">
-		<input type="text" id="phone" name="phone" class="form-control" style="width:100px;height:30px;font-size:30px; display:inline-block;margin-left:10px;">
-		<input type="text" id="phone" name="phone" class="form-control" style="width:100px;height:30px;font-size:30px; display:inline-block;margin-left:10px;">
+		<label for="phone" >휴대폰번호 :</label>
+		<input type="text" id="phone" name="phone1" value="010"  class="form-control" style="width:75px;height:20px;font-size:15px; display:inline-block;margin-left:10px;margin-top:20px;"readonly>
+		<input type="text" id="phone" name="phone2" class="form-control" style="width:75px;height:20px;font-size:15px; display:inline-block;margin-left:10px;margin-top:20px;"maxlength="4">
+		<input type="text" id="phone" name="phone3" class="form-control" style="width:75px;height:20px;font-size:15px; display:inline-block;margin-left:10px;margin-top:20px;"maxlength="4">
 		</div>
           <!-- div class="mb-3">
             <label for="address2">비밀번호 확인<span class="text-muted">&nbsp;(필수 아님)</span></label>
             <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
           </div -->
-		
+		</form>
          
-           </select>
          
       
             </div>
@@ -128,14 +148,17 @@
           </div>
           <div class="mb-4"></div>
           <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
-        </form>
+        
       </div>
     </div>
     <footer class="my-3 text-center text-small">
       <p class="mb-1">&copy; 2021 YD</p>
     </footer>
+    
+
   </div>
   <script>
+
     $(function() {
         $('#select').change(function() {
             if ($('#select').val() == 'directly') {
@@ -165,7 +188,7 @@
     }, false);
   
     
-   $(function (){
+    $(function (){
     	$("#duplicateCheckBtn").click(function(){
     		var nickName = $("#nickName").val();
     		alert(nickName);
@@ -187,6 +210,8 @@
     	});
     });
     
+
+
     
     
     
