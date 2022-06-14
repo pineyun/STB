@@ -65,7 +65,6 @@ public class MemberDAO {
 
 	public int insertMember(Member member) {
 		int result = 0;
-
 		conn = DBUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(SQL_INSERT_MEMBER);
