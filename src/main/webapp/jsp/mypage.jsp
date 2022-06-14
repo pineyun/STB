@@ -38,7 +38,8 @@
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="userId" id="userId" value="" readonly> <!-- 읽기만가능 -->
+				<c:set  target="${loginMember}" property="userId"></c:set>
+					<input type="text" name="userId" id="userId" value="${loginMember.userId}" readonly> <!-- 읽기만가능 -->
 				</td>															<!-- 사용자가 입력했던 정보가져오기 -->	
 			</tr>
 			<tr>
