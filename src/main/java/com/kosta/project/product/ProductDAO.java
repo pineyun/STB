@@ -49,7 +49,9 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 		try {
 			connection = DBUtil.getConnection();
 			if(category_id.equals("전체")) category_id = "%";
-			String query = "select * from tbl_product where CATEGORY_ID like '" 
+			String query = 
+					" select tbl_product.*,  (SELECT * FROM ( SELECT file_name FROM TBL_PRODUCT_IMAGES WHERE product_id = tbl_product.product_id ORDER BY 1 )   WHERE rownum=1 ) file_name "				 
+					+ " from tbl_product  where CATEGORY_ID like '" 
 			              + category_id + "' and content like '%" + keyword + "%' order by reg_date  " + sort;
 			pst = connection.prepareStatement(query);
 			rs = pst.executeQuery();
@@ -66,7 +68,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 				int joinNumber = rs.getInt("join_Number");
 				String userId = rs.getString("user_Id");
 				int category = rs.getInt("category_id");
-				
+				String file_name = rs.getString("file_name");
 				Product product = new Product();
 				product.setproductId(productId);
 				product.setproductTitle(productTitle);
@@ -79,6 +81,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 				product.setJoinNumber(joinNumber);
 				product.setUserId(userId);
 				product.setCategory(category);
+				product.setFile_name(file_name);
 				System.out.println(product.toString());
 				productList.add(product);
 			}
@@ -97,6 +100,8 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 		return productList;
 	}
 
+
+	
 
 
 	//솔 - INSERT PRODUCT

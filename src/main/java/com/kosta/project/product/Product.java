@@ -15,8 +15,62 @@ public class Product {
 	private int currentNumber;
 	private String userId;
 	private int category;
+	private String nickname;
+	private Date request_date;
+	private String request_status;
+	private int request_id;
+	private String file_name;
 	
-	
+	public String getFile_name() {
+		return file_name;
+	}
+
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+
+
+	public int getRequest_id() {
+		return request_id;
+	}
+
+
+	public void setRequest_id(int request_id) {
+		this.request_id = request_id;
+	}
+
+
+	public String getRequest_status() {
+		return request_status;
+	}
+
+
+	public void setRequest_status(String request_status) {
+		this.request_status = request_status;
+	}
+
+
+	public Date getRequest_date() {
+		return request_date;
+	}
+
+
+	public void setRequest_date(Date request_date) {
+		this.request_date = request_date;
+	}
+
+
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
 	public Product() {
 		
 	}
@@ -100,8 +154,46 @@ public class Product {
 		this.category = category;
 	}
 	
-	
-	
+	public int getProductId() {
+		return productId;
+	}
+
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+
+	public String getProductTitle() {
+		return productTitle;
+	}
+
+
+	public void setProductTitle(String productTitle) {
+		this.productTitle = productTitle;
+	}
+
+
+	public String getProductContent() {
+		return productContent;
+	}
+
+
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+
+
+	public String getProductStatus() {
+		return productStatus;
+	}
+
+
+	public void setProductStatus(String productStatus) {
+		this.productStatus = productStatus;
+	}
+
+
 	public int getCurrentNumber() {
 		return currentNumber;
 	}
