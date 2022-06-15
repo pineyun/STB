@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kosta.project.product.ProductService;
 
-import oracle.jdbc.oracore.TDSPatch;
-
 /**
  * Servlet implementation class IndexSevlet
  */
