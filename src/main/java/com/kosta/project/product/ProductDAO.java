@@ -235,6 +235,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 					String productStatus = rs.getString("product_Status");
 					int joinNumber = rs.getInt("join_Number");
 					String userId = rs.getString("user_Id");
+					int currentNumber = rs.getInt("current_Number");
 					int category = rs.getInt("category_id");
 					
 					viewProduct.setproductId(productId);
@@ -246,6 +247,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 					viewProduct.setReg_date(reg_date);
 					viewProduct.setproductStatus(productStatus);
 					viewProduct.setJoinNumber(joinNumber);
+					viewProduct.setCurrentNumber(currentNumber);
 					viewProduct.setUserId(userId);
 					viewProduct.setCategory(category);
 					System.out.println(viewProduct.toString());

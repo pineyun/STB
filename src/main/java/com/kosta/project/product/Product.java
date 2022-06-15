@@ -101,6 +101,17 @@ public class Product {
 	}
 	
 	
+	
+	public int getCurrentNumber() {
+		return currentNumber;
+	}
+
+
+	public void setCurrentNumber(int currentNumber) {
+		this.currentNumber = currentNumber;
+	}
+
+
 	public int getViewCount() {
 		return viewCount;
 	}

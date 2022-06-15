@@ -14,8 +14,8 @@ public class ReplyDAO {
 
 	static final String ReplyGet = "SELECT * FROM TBL_REPLY WHERE PRODUCT_ID = ?";
 
-	static final String ReplyWrite = "INSERT INTO"
-			+ "TBL_REPLY (REPLY_DATE, PRODUCT_ID, USER_ID, REPLY_CONTENT)  VALUES (sysdate, ?, ?, ?)"
+	static final String ReplyWrite = "INSERT INTO "
+			+ "TBL_REPLY (REPLY_ID, REPLY_DATE, PRODUCT_ID, USER_ID, REPLY_CONTENT)  VALUES (REPLY_SEQ.nextval, sysdate, ?, ?, ?)"
 			+ "";
 
 	Connection conn;
@@ -72,11 +72,11 @@ public class ReplyDAO {
 
 	public int writeReply(Reply reply) {
 
-		Connection connection = null;
+		Connection conn = null;
 		pst = null;
 		rs = null;
 		try {
-			connection = DBUtil.getConnection();
+			conn = DBUtil.getConnection();
 			pst = conn.prepareStatement(ReplyWrite);
 			pst.setInt(1, reply.getProduct_ID());
 			pst.setString(2, reply.getUser_ID());

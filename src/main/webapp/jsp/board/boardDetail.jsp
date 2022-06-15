@@ -71,8 +71,8 @@
 
 		<div class="card">
 			<form>
-				<input type="hidden" id="userId" value="${loginMember}" /> <input
-					type="hidden" id="boardId" value="${productView.productId}" />
+				<%-- <input type="hidden" id="userId" value="${loginMember}" />  --%>
+				<input type="hidden" id="boardId" value="${productView.productId}" />
 				<div class="card-body">
 					<textarea style="width: 90%; display: inline-block;"
 						id="reply-content" class="form-control" rows="1"></textarea>
@@ -90,17 +90,19 @@
 					<c:forEach var="reply" items="${replyList}">
 						<li id="reply-${reply.reply_ID}"
 							class="list-group-item d-flex justify-content-between">
+							<input type="hidden" id=replyId" value="${reply.reply_ID}" />
+							
 							<div>${reply.reply_CONTENT}</div>
 							<div class="d-flex">
 								<div class="font-italic">
 									작성자 : ${reply.user_ID} <br /> ${reply.reply_DATE} &nbsp;
 								</div>
-								<c:set  target="${loginMember}" property="userId"></c:set>
-								<c:if test="${productView.userId == principal.user.id}">
-									<button
-										onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
-										class="btn btn-warning badge">삭제</button>
-								</c:if>
+								<%-- <c:set target="${loginMember}" property="userId"></c:set>
+								<c:if test="${productView.userId == principal.user.id}"></c:if> --%>
+								<button
+									onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
+									class="btn btn-warning badge" id="btn-replyDelete">삭제</button>
+
 							</div>
 						</li>
 					</c:forEach>
@@ -146,10 +148,47 @@ $("#btn-reply").on('click', function() {
 		    $.ajax({
 		        type: "POST",
 		        url: "${contextPath}/writeReply.do",
-		        data: {jsonInfo: data},
-		        contentType:"application/json; charset=utf-8",
-		        dataType:"json",
+		        data: data,
+		       // contentType:"application/json; charset=utf-8",
+		       // dataType:"json",
 		        success:function(data,textStatus){
+		        	alert(data);
+		        	var nextPage = "${contextPath}/product/view.do?productId=" + $("#boardId").val();
+					location.href = nextPage;
+					
+		        },
+		        error:function(data,textStatus){
+		        	alert("에러발생");
+		        }
+	
+		    });
+	   	}
+});
+
+$("#btn-replyDelete").on('click', function() {
+	let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			replyId: $("#replyId").val()
+			
+	    };
+		console.log(data);
+		if($("#reply-content").val().trim() === ""){
+
+	    		alert("댓글을 입력하세요.");
+	    		$("#reply-content").val("").focus();
+	    }else{
+		    $.ajax({
+		        type: "DELETE",
+		        url: "${contextPath}/writeReply.do",
+		        data: data,
+		       // contentType:"application/json; charset=utf-8",
+		       // dataType:"json",
+		        success:function(data,textStatus){
+		        	alert(data);
+		        	var nextPage = "${contextPath}/product/view.do?productId=" + $("#boardId").val();
+					location.href = nextPage;
+					
 		        },
 		        error:function(data,textStatus){
 		        	alert("에러발생");

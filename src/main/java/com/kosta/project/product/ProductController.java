@@ -3,6 +3,7 @@ package com.kosta.project.product;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,50 +51,54 @@ public class ProductController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String action = request.getServletPath();
 		System.out.println("action:" + action);
-		try {
-			List<Product> productList = new ArrayList<Product>();
-			if (action == null) {
+
+		List<Product> productList = new ArrayList<Product>();
+		if (action == null) {
 //				productList = productService.listProduct();
 //				request.setAttribute("productList", productList);
 //				nextPage= "/jsp/board/boardList.jsp";
-				System.out.println("하이");
+			System.out.println("하이");
 //			} else if(action.equals("/listProduct.do")) {
 //				productList = productService.listProduct();
 //				request.setAttribute("productList", productList)g;
 //				nextPage= "/jsp/board/boardList.jsp";
-			} else if (action.equals("/product/view.do")) {
-				
-				System.out.println("view호출");
-				String productId = request.getParameter("productId");
-				List<Reply> replylist = replyService.replyList(Integer.parseInt(productId));
-				product = productService.view(Integer.parseInt(productId));
-				request.setAttribute("productView", product);
-				request.setAttribute("replyList", replylist);
-				nextPage = "/jsp/board/boardDetail.jsp";
-			} else if (action.equals("/writeReply.do")) {
-				String jsonInfo = request.getParameter("jsonInfo");
-				try {
-					JSONParser jsonParser = new JSONParser();
-					JSONObject jsonObject = jsonObject = (JSONObject) jsonParser.parse(jsonInfo);
-					System.out.println(jsonObject.get("userId"));
-					
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				
-				
-				int productId = Integer.parseInt(request.getParameter("boardId"));
-				String userId = request.getParameter("userId");
-				String content = request.getParameter("reply-content");
+		} else if (action.equals("/product/view.do")) {
 
-				nextPage = "${contextPath}/product/view.do?productId="+productId;
-			} 
+			System.out.println("view호출");
+			String productId = request.getParameter("productId");
+			List<Reply> replylist = replyService.replyList(Integer.parseInt(productId));
+			product = productService.view(Integer.parseInt(productId));
+			request.setAttribute("productView", product);
+			request.setAttribute("replyList", replylist);
+			nextPage = "/jsp/board/boardDetail.jsp";
+		} else if (action.equals("/writeReply.do")) {
+			/*
+			 * String jsonInfo = request.getParameter("jsonInfo"); try { JSONParser
+			 * jsonParser = new JSONParser(); JSONObject jsonObject = jsonObject =
+			 * (JSONObject) jsonParser.parse(jsonInfo);
+			 * System.out.println(jsonObject.get("userId"));
+			 * 
+			 * } catch(Exception e) { e.printStackTrace(); }
+			 */
+			String userId = request.getParameter("userId");
+			int productId = Integer.parseInt(request.getParameter("boardId"));
+			String content = request.getParameter("content");
 
-			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-			dispatch.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(content);
+			reply = new Reply(productId, userId, content);
+			productService.insertReply(reply);
+
+			PrintWriter out = response.getWriter();
+			out.print("OK");
+			return;
+		} else if(action.equals("/deleteReply.do")) {
+			String userId = request.getParameter("userId");
+			int productId = Integer.parseInt(request.getParameter("boardId"));
+			int replyId = Integer.parseInt(request.getParameter("replyId"));
 		}
+
+		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
+		dispatch.forward(request, response);
 	}
 
 }
