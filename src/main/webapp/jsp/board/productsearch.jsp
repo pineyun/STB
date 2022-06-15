@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <link rel=stylesheet href="css/reset.css">
-<link rel=stylesheet href="css/boardList.css"> 
+<link rel=stylesheet href="../css/boardList.css"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
@@ -57,13 +57,13 @@ body {
 					<c:forEach items="${productList}" var="productList">
 						<li>
 							<div id="product-img">
-								<span id="/STB/product/view.do?productId=${productList.productId}" >${productList.productStatus}</span> 
-								<a href=""> <!-- <img src="#" /> -->
+								<span id="" >${productList.productStatus}</span> 
+								<a href="${contextPath}/product/view.do?productId=${productList.productId}"> <!-- <img src="#" /> -->
 								</a>
 							</div>
 
 							<div id="product-info">
-								<a href="/STB/product/view.do?productId=${productList.productId}" id="title">${productList.productTitle}</a> <span
+								<a href="${contextPath}/product/view.do?productId=${productList.productId}" id="title">${productList.productTitle}</a> <span
 									id="price">${productList.price}원</span> 
 									<%-- <span id="userid">${productList.userId}</span> --%>
 								<span id="date">${productList.reg_date}</span>
