@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kosta.project.member.model.service.MemberService;
 import com.kosta.project.member.vo.Member;
+import com.kosta.project.product.ProductService;
 
 /**
  * Servlet implementation class MemberLoginController
@@ -47,16 +48,18 @@ public class MemberLoginController extends HttpServlet {
 			session.removeAttribute("msg");
 		//System.out.println("여기서찍었씁니다 : " + member);
 		//session.setAttribute("msg", "로그인되었습니다.");			
-		Member loginMember = (Member) session.getAttribute("loginMember");
-		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+		//Member loginMember = (Member) session.getAttribute("loginMember");
+		//request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+			
+		    response.sendRedirect("../index");
 		}
-
+           //    /jsp/index.jsp     /jsp/productsearch.jsp
 		else if (member == null || !password.equals(member.getUserPassword())) {
 
 			session.setAttribute("msg", "아이디 또는 비밀번호가 맞지 않습니다.");
 		
-			String location = request.getContextPath() + "/jsp/login.jsp";
-			response.sendRedirect(location);
+			 
+			response.sendRedirect("login");
 			
 		}
 
