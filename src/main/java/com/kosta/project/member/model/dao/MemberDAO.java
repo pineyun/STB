@@ -12,9 +12,9 @@ import com.kosta.project.util.DBUtil;
 public class MemberDAO {
 	static final String SQL_SELECT_BYID = "select * from tbl_user where user_id = ?";
 	static final String SQL_INSERT_MEMBER = "insert into tbl_user values(?,?,?,?,sysdate,?,'user')";
-
+	static final String SQL_UDATEMEMBER ="UPDATE TBL_USER SET PHONE = ? WHERE USER_ID = ?";
 	static final String SQL_SELECT_NICK = "select * from tbl_user where nickname=?";
-
+	static final String SQL_DELETEMEMBER = "delete from tbl_user where user_id=?";
 	Connection conn;
 	Statement st;
 	PreparedStatement pst;
@@ -25,11 +25,11 @@ public class MemberDAO {
 	public Member selectByNick(String nickName) {
 		Member member = null;
 		conn = DBUtil.getConnection();
-		System.out.println("ì»¤ë„¥ì…˜3"+conn);
+		System.out.println("Ä¿³Ø¼Ç3"+conn);
 		try {
 			pst = conn.prepareStatement(SQL_SELECT_NICK);
 			pst.setString(1, nickName);
-			System.out.println("ë‹‰ë„¤ìž„" + nickName);
+			System.out.println("´Ð³×ÀÓ" + nickName);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				member = makeEmp(rs);
@@ -65,7 +65,6 @@ public class MemberDAO {
 
 	public int insertMember(Member member) {
 		int result = 0;
-
 		conn = DBUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(SQL_INSERT_MEMBER);
@@ -99,5 +98,32 @@ public class MemberDAO {
 
 		return emp;
 	}
-
+	public int updateMember(Member member) {
+		int result = 0;
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement( SQL_UDATEMEMBER);
+			pst.setString(1,member.getPhone());
+			pst.setString(2,member.getUserId());
+			int rs= pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(st);
+		}
+		return result;
+	}
+	public int delete(String userId) {
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(SQL_DELETEMEMBER);
+            pst.setString(1, userId);
+			result = pst.executeUpdate();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(rs, pst, conn);
+		}		
+		return result;
+	}
 }

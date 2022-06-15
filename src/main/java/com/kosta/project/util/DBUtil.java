@@ -2,6 +2,7 @@ package com.kosta.project.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,8 +16,8 @@ public class DBUtil {
 //			initContext = new InitialContext();
 //			Context envContext  = (Context)initContext.lookup("java:/comp/env");
 //			DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");//JNDI방식
-//			conn = ds.getConnection();//Tomcat?�� connection pooling?�� ?��결한 connection?���?
-//			System.out.println(conn + "����");
+//			conn = ds.getConnection();//
+//		
 //		} catch (NamingException | SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -42,6 +43,16 @@ public class DBUtil {
 			if(rs!=null) rs.close();
 			if(st!=null) st.close();
 			if(conn!=null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public static void dbClose(Statement st) {
+		try {
+			if(st!=null) st.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

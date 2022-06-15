@@ -46,12 +46,14 @@ public class MemberLoginController extends HttpServlet {
 
 		if (member != null && password.equals(member.getUserPassword())) {
 			session.removeAttribute("msg");
-		//System.out.println("여기서찍었씁니다 : " + member);
-		//session.setAttribute("msg", "로그인되었습니다.");			
+
+		//System.out.println("ш린李 : " + member);
+		//session.setAttribute("msg", "濡洹몄몃듬.");			
 		//Member loginMember = (Member) session.getAttribute("loginMember");
 		//request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 			
 		    response.sendRedirect("../index");
+
 		}
            //    /jsp/index.jsp     /jsp/productsearch.jsp
 		else if (member == null || !password.equals(member.getUserPassword())) {
