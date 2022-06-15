@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kosta.project.member.model.service.MemberService;
 import com.kosta.project.member.vo.Member;
+import com.kosta.project.product.ProductService;
 
 /**
  * Servlet implementation class MemberLoginController
@@ -45,18 +46,22 @@ public class MemberLoginController extends HttpServlet {
 
 		if (member != null && password.equals(member.getUserPassword())) {
 			session.removeAttribute("msg");
-		//System.out.println("¿©±â¼­Âï¾ú¾¹´Ï´Ù : " + member);
-		//session.setAttribute("msg", "·Î±×ÀÎµÇ¾ú½À´Ï´Ù.");			
-		Member loginMember = (Member) session.getAttribute("loginMember");
-		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
-		}
 
+		//System.out.println("Â—Ñˆë¦°Â„Âœï§¡ÂÂ—ÂˆÂ”ÂÂ‹ÂˆÂ‹ : " + member);
+		//session.setAttribute("msg", "æ¿¡Âœæ´¹ëª„ÂëªƒÂÂ˜Â—ÂˆÂŠë“¬Â‹ÂˆÂ‹.");			
+		//Member loginMember = (Member) session.getAttribute("loginMember");
+		//request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+			
+		    response.sendRedirect("../index");
+
+		}
+           //    /jsp/index.jsp     /jsp/productsearch.jsp
 		else if (member == null || !password.equals(member.getUserPassword())) {
 
-			session.setAttribute("msg", "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
+			session.setAttribute("msg", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		
-			String location = request.getContextPath() + "/jsp/login.jsp";
-			response.sendRedirect(location);
+			 
+			response.sendRedirect("login");
 			
 		}
 
