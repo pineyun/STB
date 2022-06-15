@@ -78,37 +78,5 @@ public class ProductInsertServlet extends HttpServlet {
 	
 	}
 	
-	private Product productInsert(HttpServletRequest request) {
-		Product product = new Product();
-		
-		int categoryId = readInt(request, "category_id");
-		int price = readInt(request, "price");
-		int join_number = readInt(request, "join_number");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-	
-		HttpSession session = request.getSession();
-		//Member member = (Member)session.getAttribute("loginMember");
-		 Member member = new Member();
-		 member.setUserId("admin");
-
-		System.out.println(member);
-		product.setUserId(member.getUserId());
-		product.setCategory(categoryId);
-		product.setPrice(price);
-		product.setJoinNumber(join_number);
-		product.setproductTitle(title);
-		product.setproductContent(content);
-		
-		
-		System.out.println(product);
-		return product;
-	}
-	
-	private int readInt(HttpServletRequest request, String column) {
-		String data = request.getParameter(column);
-		return Integer.parseInt(data);
-	}
-	
 
 }
