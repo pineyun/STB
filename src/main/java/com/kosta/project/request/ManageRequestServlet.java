@@ -28,8 +28,7 @@ public class ManageRequestServlet extends HttpServlet {
 			requestService.acceptRequest(requestid);
 		}
 		
-		
-		
+
 		response.sendRedirect("requestList.do");
 	}
 	

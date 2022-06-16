@@ -27,6 +27,11 @@ public class RequestService {
 		return requestDAO.refuseRequest(request_id);
 	}
 	
+	//신청하기
+	public int askRequest(RequestVO request) {
+		return requestDAO.askRequest(request);
+	}
+	
 	//신청 취소하기
 	public int cancelRequest(int request_id, int productid) {
 		
