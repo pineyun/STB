@@ -79,7 +79,6 @@
 							   		<input type="button" value="승인하기" data-requestid="${current.request_id}" data-productid="${current.productId}" id="acceptRequest">
 							</c:if>
 								</td>
-							
 						</tr>	 
 					</c:forEach>						
 					</table>

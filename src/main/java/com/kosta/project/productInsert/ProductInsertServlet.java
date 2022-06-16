@@ -70,11 +70,13 @@ public class ProductInsertServlet extends HttpServlet {
 		int imgresult = pService.insertProductImages(pid, imageList);
 
 		
-			
-		request.setAttribute("message", result>0? "게시 성공" : "게시 실패");
-		RequestDispatcher rd;
-		rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
+		//request.setAttribute("message", result>0? "게시 성공" : "게시 실패");
+		String location = request.getContextPath() + "/index";
+		response.sendRedirect(location);
+
+		//RequestDispatcher rd;
+		//rd = request.getRequestDispatcher("../index");
+		//rd.forward(request, response);
 	
 	}
 	
