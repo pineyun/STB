@@ -28,7 +28,7 @@ public class UpdatePasswordController extends HttpServlet {
 	}
 
 	/**
-	 * ��й�ȣ ����ó��
+	 * 비밀번호 변경처리
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String location = request.getContextPath();
@@ -41,21 +41,21 @@ public class UpdatePasswordController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
-		// �Է� ��й�ȣ ��ġ����
+		// 입력 비밀번호 일치여부
 		if(oldPassword.equals(loginMember.getUserPassword())) {
 			
-			// ������й�ȣ�� ��ġ�� ��츸 �űԺ�й�ȣ�� ������Ʈ
+			// 기존비밀번호가 일치한 경우만 신규비밀번호로 업데이트
 			loginMember.setUserPassword(newPassword);
 			result = service.updatePassword(loginMember);
 			msg = (result > 0) ? 
-					"��й�ȣ�� ���������� �����߽��ϴ�." : "��й�ȣ�� ���濡 �����߽��ϴ�.";
+					"비밀번호를 성공적으로 변경했습니다." : "비밀번호를 변경에 실패했습니다.";
 			location += "/jsp/mypage.jsp";
 		}
 		else {
-			msg = "��й�ȣ�� ��ġ���� �ʽ��ϴ�.";				
+			msg = "비밀번호가 일치하지 않습니다.";				
 			location += "/jsp/updatePassword";
 		}
-		// ����� ���â
+		// 사용자 경고창
 		session.setAttribute("msg", msg);
 		response.sendRedirect(location);
 	}
