@@ -22,7 +22,7 @@ public class RequestService {
 		return requestDAO.acceptRequest(request_id);
 	}
 	
-	//승낙 취소하기 ? 신청 취소하기 ?
+	//승낙 취소하기 ? (N으로 바꾸기)
 	public int refuseRequest(int request_id) {
 		return requestDAO.refuseRequest(request_id);
 	}

@@ -20,13 +20,13 @@ public class MemberJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//¼öÁ¤ÇÏ±â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		request.setCharacterEncoding("utf-8");
 		Member member = makeEmp(request);
 		MemberService service = new MemberService();
 		int result = service.insertMember(member);
 		String path = request.getContextPath();
-//		String msg = result>0 ? "°¡ÀÔÀ» È¯¿µÇÕ´Ï´Ù.!": "°¡ÀÔ¿¡ ½ÇÆÐÇÏ¼Ì½À´Ï´Ù.";
+//		String msg = result>0 ? "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ï¿½Õ´Ï´ï¿½.!": "ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.";
 //		request.setAttribute("message", msg);
 
 		response.sendRedirect(path+"/jsp/login.jsp");

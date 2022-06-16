@@ -30,7 +30,7 @@ public class NickDuplicateCheck extends HttpServlet {
 		String nickName = request.getParameter("nickname");
         System.out.println("emp_Id:" + nickName);
 
-        //DB¿¡ Á÷¿øid°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù. ???empService->empDAO-->DB
+        //DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½. ???empService->empDAO-->DB
         MemberService service = new MemberService();
         Member member = service.selectByNick(nickName);
         PrintWriter out = response.getWriter();

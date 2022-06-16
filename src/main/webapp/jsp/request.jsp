@@ -24,7 +24,7 @@
 	
 	
 	$(function(){
-		$("#cancelRequest").click(function(){
+		$(".cancelRequest").click(function(){
 			var requestid = $(this).attr("data-requestid");
 			var productid = $(this).attr("data-productid");
 			console.log(productid);
@@ -73,7 +73,7 @@
 								<td>${myjoin.nickname} </td>
 								<td>
 									<c:if test="${current.request_status == 'y'}">
-									   <input type="button" value="승인취소"  data-productid="${current.productId}" data-requestid="${current.request_id}" id="cancelRequest">
+									   <input type="button" value="승인취소"  data-productid="${current.productId}" data-requestid="${current.request_id}" class="cancelRequest">
 									</c:if>
 									<c:if test="${current.request_status == 'n'}">
 							   		<input type="button" value="승인하기" data-requestid="${current.request_id}" data-productid="${current.productId}" id="acceptRequest">
@@ -100,7 +100,7 @@
 							<td>${myrequest.productStatus}</td>
 							<td>${myrequest.reg_date}</td>
 							<td>${myrequest.request_date}</td>
-							<td><input type="button" value="신청취소"></li></td>
+							<td><input type="button" value="신청취소" data-productid="${current.productId}" data-requestid="${current.request_id}" class="cancelRequest"></li></td>
 						</tr>	 
 					</c:forEach>
 					</table>

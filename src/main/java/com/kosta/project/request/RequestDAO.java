@@ -20,6 +20,7 @@ public class RequestDAO {
 	static final String SQL_ACCEPT_REQUEST = "UPDATE TBL_REQUEST SET REQUEST_STATUS = 'y' WHERE REQUEST_ID = ?";
 	static final String SQL_REFUSE_REQUEST = "UPDATE TBL_REQUEST SET REQUEST_STATUS = 'n' WHERE REQUEST_ID = ?";
 	static final String SQL_CANCEL_REQUEST = "DELETE FROM TBL_REQUEST WHERE REQUEST_ID = ?";
+	static final String SQL_INCREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number+1 where product_id = ?";
 	static final String SQL_DECREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number-1 where product_id = ?";
 
 	Connection conn;
@@ -107,7 +108,7 @@ public class RequestDAO {
 	}
 	
 	
-	//ACCEPT REQUEST
+	//ACCEPT REQUEST -> request_status Y로 바꾸기
 	public int acceptRequest(int request_id) {
 		int result = 0;
 		conn = DBUtil.getConnection();
@@ -124,7 +125,7 @@ public class RequestDAO {
 		return result;
 	}
 	
-	//REFUSE REQUEST
+	//REFUSE REQUEST -> request_status N으로 바꾸기
 		public int refuseRequest(int request_id) {
 			int result = 0;
 			conn = DBUtil.getConnection();
@@ -157,8 +158,26 @@ public class RequestDAO {
 			}
 			return result;
 		}
+	
 		
-	//UPDATE CURRENT NUMBER
+	//INCREASE CURRENT NUMBER
+			public int increaseCurrentNumber(int product_id) {
+				int result = 0;
+				conn = DBUtil.getConnection();
+				try {
+					pst = conn.prepareStatement(SQL_INCREASE_CURRENT_NUMBER);
+					pst.setInt(1, product_id);
+					result = pst.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					DBUtil.dbClose(rs, pst, conn);
+				}
+				return result;
+			}	
+		
+		
+	//DECREASE CURRENT NUMBER
 		public int decreaseCurrentNumber(int product_id) {
 			int result = 0;
 			conn = DBUtil.getConnection();

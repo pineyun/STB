@@ -12,7 +12,7 @@
 	<div id="wrapper">
 			<!-- Menu -->
 				<nav id="Update">	
-				<form action="${path }/MemberUpdateService" method="post"> <%--절대경로 --%>
+				<form action="${path }/updateProrfile.do" method="post"> <%--절대경로 --%>
 					
 						<h4>회원정보수정</h4></br>
 							

@@ -152,6 +152,7 @@ header {
 
 #header_center {
 	float: left;
+	margin-top: 15px;
 	width: 440px;
 	height: 48px;
 
@@ -177,8 +178,8 @@ header {
 }
 #btn_search{
 	position: absolute;
-	right:20px;
-	top:12px;
+	margin-left: 390px;
+	margin-top:12px;
 }
 #btn_search img {
 	float: left;
