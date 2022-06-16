@@ -72,9 +72,10 @@ public class ProductInsertServlet extends HttpServlet {
 		
 			
 		request.setAttribute("message", result>0? "게시 성공" : "게시 실패");
-		RequestDispatcher rd;
-		rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
+		String location = request.getContextPath() + "/index";
+		response.sendRedirect(location);
+
+		 
 	
 	}
 	
