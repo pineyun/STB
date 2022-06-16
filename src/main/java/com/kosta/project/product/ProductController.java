@@ -1,6 +1,7 @@
 package com.kosta.project.product;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kosta.project.reply.Reply;
+import com.kosta.project.reply.ReplyService;
+
 
 @WebServlet("*.do")
 public class ProductController extends HttpServlet {
@@ -18,10 +22,12 @@ public class ProductController extends HttpServlet {
 	
 	ProductService productService;
 	Product product;
-	
+	Reply reply;
+	ReplyService replyService;
 	
 	public void init() throws ServletException{
 		productService = new ProductService();
+		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -54,6 +60,30 @@ public class ProductController extends HttpServlet {
 				product = productService.view(Integer.parseInt(productId));
 				request.setAttribute("productView", product);
 				nextPage = "/jsp/board/boardDetail.jsp";
+			} else if (action.equals("/writeReply.do")) {
+				/*
+				 * String jsonInfo = request.getParameter("jsonInfo"); try { JSONParser
+				 * jsonParser = new JSONParser(); JSONObject jsonObject = jsonObject =
+				 * (JSONObject) jsonParser.parse(jsonInfo);
+				 * System.out.println(jsonObject.get("userId"));
+				 * 
+				 * } catch(Exception e) { e.printStackTrace(); }
+				 */
+				String userId = request.getParameter("userId");
+				int productId = Integer.parseInt(request.getParameter("boardId"));
+				String content = request.getParameter("content");
+
+				System.out.println(content);
+				reply = new Reply(productId, userId, content);
+				replyService.create(reply);
+
+				PrintWriter out = response.getWriter();
+				out.print("OK");
+				return;
+			} else if(action.equals("/deleteReply.do")) {
+				String userId = request.getParameter("userId");
+				int productId = Integer.parseInt(request.getParameter("boardId"));
+				int replyId = Integer.parseInt(request.getParameter("replyId"));
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);

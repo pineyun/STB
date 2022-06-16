@@ -11,25 +11,29 @@
 <link rel=stylesheet href="../css/reset.css">
 <link rel=stylesheet href="../css/common.css">
 <link rel=stylesheet href="../css/productInsert.css">
+<link rel=stylesheet href="${contextPath}/css/boardList.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>조인 만들기</title>
 <script>
-/* 총액, 인원 입력하면 자동으로 1/n 계산해서 보여주기 */
-/* $(function(){
-		$("#아이디입력").이벤트(function(){
-			$.ajax({
-				url:"",
-				data:{"aaa":},
-				type:"get"
+	/* 총액, 인원 입력하면 자동으로 1/n 계산해서 보여주기 */
+	$(function(){
+			$("#price, #join_number").change(function(){
+				var price = $("#price").val();
+				var join_number = $("#join_number").val();
+				if(price=="") price=0;
+				if(join_number=="") join_number=0;
+				if(join_number==0) 
+					$("#divide_price").html("")
+				else 
+					$("#divide_price").html(Math.floor(price/join_number));
 			});
-		});
-}); */
+	});
 </script>
 </head>
 <body>
 	<div id="wrap">
 		<%@ include file="/jsp/header.jsp"%>
-	
+		<div id="here">
 		<section id="productInsert">
 		
 			<h1>조인 만들기</h1>
@@ -48,14 +52,15 @@
 				</div>
 				<div class="form_group">
 					<label>총액</label>
-					<input type="number" name="price">
+					<input type="number" name="price" id="price">
 				</div>
 				<div class="form_group">
 					<label>조인인원</label>
-					<input type="number" name="join_number">
+					<input type="number" name="join_number"  id="join_number"_>
 				</div>
 				<div class="form_group">
 					<label>예상 1/N가격</label>
+					<p id="divide_price"></p>
 				</div>
 				<div class="form_group">
 					<label>사진1</label>
@@ -87,8 +92,9 @@
 				</div>
 				
 			</form>
+			
 		</section>
-	
+		</div>
 		<%@ include file="/jsp/footer.jsp"%>
 	</div>
 </body>

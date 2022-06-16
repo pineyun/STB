@@ -29,9 +29,9 @@ public class MemberDeleteController extends HttpServlet {
 			System.out.println("userId: " + userId);
 		    MemberService service = new MemberService();
 		    int result = service.delete(userId);
-		    request.setAttribute("message", result>0?"»èÁ¦¼º°ø":"»èÁ¦½ÇÆÐ");
+		    request.setAttribute("message", result>0?"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½":"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
-		    //À§ÀÓ
+		    //ï¿½ï¿½ï¿½ï¿½
 			String location = request.getContextPath() + "/jsp/login.jsp";
 			response.sendRedirect(location);
 	}

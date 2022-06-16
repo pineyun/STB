@@ -33,9 +33,6 @@ public class IndexServlet extends HttpServlet {
 
 		ProductService productService = new ProductService();
 		 
-		System.out.println("index요청 ");
-		
-		
 		RequestDispatcher rdDispatcher =request.getRequestDispatcher("/jsp/index.jsp");
 		rdDispatcher.forward(request, response);
 		

@@ -20,11 +20,16 @@ public class MemberJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		Member member = makeEmp(request);
 		MemberService service = new MemberService();
 		int result = service.insertMember(member);
 		String path = request.getContextPath();
+
+//		String msg = result>0 ? "������ ȯ���մϴ�.!": "���Կ� �����ϼ̽��ϴ�.";
+//		request.setAttribute("message", msg);
+
 
 		response.sendRedirect(path+"/jsp/login.jsp");
         
