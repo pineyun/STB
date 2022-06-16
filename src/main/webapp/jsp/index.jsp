@@ -7,37 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>함께하면 가벼운 소비, N분의1</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<link rel=stylesheet href="${path}/css/reset.css">
-<link rel=stylesheet href="${path}/css/common.css?after">
-<link rel=stylesheet href="${path}/css/boardList.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-
- <script type="text/javascript">
-
-  var naver_id_login = new naver_id_login("eqagp0fQve1EtqpGZsux");
-  // 접근 토큰 값 출력
-  //alert(naver_id_login.oauthParams.access_token);
-  // 네이버 사용자 프로필 조회
-  if(naver_id_login.is_callback == true){
-	naver_id_login.get_naver_userprofile("callbackFunction()");
-	}
-
-  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-  function naverSignInCallback() {
-	email = naver_id_login.getProfileData('email');
-    //alert(naver_id_login.getProfileData('email'));
-    //alert(naver_id_login.getProfileData('nickname'));
-  	window.close();
-  	
-    top.opener.location.href="http://localhost:9090/STB/jsp/index.jsp";
-
-  }
-</script>
 </head> 
 <body>
 	<div id="wrap">
@@ -92,21 +61,7 @@
 					 }
 				 });
 
-			  $("#input_search").on("keydown", function(event){
-				  
-				  if(event.keyCode == 13) {  
-						 $.ajax({
-							 url:"${path}/listProduct.do",
-							 data:{"category_id":"%",
-									"keyword":$(this).val(), "sort":"desc"},
-							 type:"post",
-							 success:function(responseData){
-								 
-								 $("#here").html(responseData);
-							 }
-						 });
-				  }
-			  });
+			  
 		  });
 		
 		</script>
