@@ -38,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 		
 		request.setAttribute("productList", productService.listProduct("%", "%", "asc"));
 		request.setAttribute("clist", productService.selectCategoryName());
-		RequestDispatcher rdDispatcher =request.getRequestDispatcher("jsp/index.jsp");
+		RequestDispatcher rdDispatcher =request.getRequestDispatcher("/jsp/index.jsp");
 		rdDispatcher.forward(request, response);
 		
 	}

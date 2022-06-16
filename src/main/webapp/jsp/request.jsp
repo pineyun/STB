@@ -115,9 +115,7 @@
 					${myrequest.productStatus}
 						<input type="button" value="신청취소"/></li>
 					</c:forEach>
-					
-					
-						 
+
 					</ul> -->
 				</li>
 			</ul>

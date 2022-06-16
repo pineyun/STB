@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
 <link rel=stylesheet href="../css/reset.css">
 <link rel=stylesheet href="../css/common.css">
 <link rel=stylesheet href="../css/productInsert.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>조인 만들기</title>
 <script>
 /* 총액, 인원 입력하면 자동으로 1/n 계산해서 보여주기 */

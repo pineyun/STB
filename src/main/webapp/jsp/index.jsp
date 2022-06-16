@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var= "path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<link rel=stylesheet href="../css/reset.css">
-<link rel=stylesheet href="../css/boardList.css">
-<link rel=stylesheet href="../css/common.css?after">
+<link rel=stylesheet href="${path}/css/reset.css">
+<link rel=stylesheet href="${path}/css/common.css?after">
+<link rel=stylesheet href="${path}/css/boardList.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
@@ -21,14 +21,14 @@
 
   var naver_id_login = new naver_id_login("eqagp0fQve1EtqpGZsux");
   // 접근 토큰 값 출력
-  alert(naver_id_login.oauthParams.access_token);
+  //alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()",);
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
   function naverSignInCallback() {
 	email = naver_id_login.getProfileData('email');
-    alert(naver_id_login.getProfileData('email'));
-    alert(naver_id_login.getProfileData('nickname'));
+    //alert(naver_id_login.getProfileData('email'));
+    //alert(naver_id_login.getProfileData('nickname'));
   	window.close();
   	
     top.opener.location.href="http://localhost:9090/STB/jsp/index.jsp";
@@ -79,7 +79,7 @@
 
 		  $(function(){
 			  $.ajax({
-					 url:"../listProduct.do",
+					 url: "${path}/listProduct.do",
 					 data:{"category_id":"%",
 							"keyword":"%", "sort":"desc"},
 					 type:"post",
@@ -93,7 +93,7 @@
 				  
 				  if(event.keyCode == 13) {  
 						 $.ajax({
-							 url:"../listProduct.do",
+							 url:"${path}/listProduct.do",
 							 data:{"category_id":"%",
 									"keyword":$(this).val(), "sort":"desc"},
 							 type:"post",

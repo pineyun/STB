@@ -152,6 +152,9 @@ header {
 
 #header_center {
 	float: left;
+	width: 440px;
+	height: 48px;
+
 }
 
 #search form {
@@ -178,6 +181,7 @@ header {
 	top:12px;
 }
 #btn_search img {
+	float: left;
 	width: 20px;
 }
 

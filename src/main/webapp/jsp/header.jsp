@@ -26,16 +26,16 @@
 					"keyword":"%", "sort":"desc"},
 			 type:"post",
 			 success:function(responseData){
-				  
 				 $("#here").html(responseData);
 			 }
 		 });
 	}
 </script>
-	<!-- TOP버튼 -->
-	<span id="tothetop"><img src="../img/header/top.png" alt="top"></span>
-	<!-- 글 작성 버튼 -->
 	<c:set var= "path" value="${pageContext.request.contextPath}"/>
+	<!-- TOP버튼 -->
+	<span id="tothetop"><img src="${path}/img/header/top.png" alt="top"></span>
+	<!-- 글 작성 버튼 -->
+	
 	<span id="insertBtn"><a href="${path}/jsp/productInsert.do"><img src="${path}/img/header/insertBtn.png" alt="insert"></a></span>
 	<!-- HEADER -->
 		<header>
@@ -55,12 +55,12 @@
 							</ul>
 						</div>
 					</div>
-					<a href="../jsp/index.jsp" id="logo"><img src="${path}/img/header/logo.png" alt="logo"></a>
+					<a href="${path}/index" id="logo"><img src="${path}/img/header/logo.png" alt="logo"></a>
 				</div>
 				<div id="header_center">
 					<div id="search">
 						<input type="text" placeholder="검색어를 입력하세요." id="input_search">
-							<a href="" id="btn_search"><img src="${path}/img/header/search.png" alt="search"></a>
+						<a href="listProduct.do" id="btn_search"><img src="${path}/img/header/search.png" alt="search"></a>
 					</div>
 				</div>
 				<div id="header_right">
