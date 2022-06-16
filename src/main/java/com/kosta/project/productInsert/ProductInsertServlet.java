@@ -75,7 +75,11 @@ public class ProductInsertServlet extends HttpServlet {
 		String location = request.getContextPath() + "/index";
 		response.sendRedirect(location);
 
-		 
+
+		//RequestDispatcher rd;
+		//rd = request.getRequestDispatcher("../index");
+		//rd.forward(request, response);
+
 	
 	}
 	
