@@ -49,10 +49,23 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 		try {
 			connection = DBUtil.getConnection();
 			if(category_id.equals("전체")) category_id = "%";
+//			String query = 
+//					" select tbl_product.*,  (SELECT * FROM ( SELECT file_name FROM TBL_PRODUCT_IMAGES img WHERE img.product_id = product_id ORDER BY 1 )   WHERE rownum=1 ) file_name "				 
+//					+ " from tbl_product  where CATEGORY_ID like '" 
+//			              + category_id + "' and ( content like '%" + keyword + "%' or title like '%" + keyword + "%' ) order by reg_date " + sort;
 			String query = 
-					" select tbl_product.*,  (SELECT * FROM ( SELECT file_name FROM TBL_PRODUCT_IMAGES WHERE product_id = tbl_product.product_id ORDER BY 1 )   WHERE rownum=1 ) file_name "				 
-					+ " from tbl_product  where CATEGORY_ID like '" 
-			              + category_id + "' and content like '%" + keyword + "%' order by reg_date  " + sort;
+			" select * " 
+			+" From " 
+			+" (" 
+			+"  select p.*, img.file_name ,row_number() over ( partition by p.product_id  order by  image_id ) rum"
+			+" from  tbl_product p,  TBL_PRODUCT_IMAGES img  " 
+			+" where  img.product_id = p.product_id     " 
+			+" )" 
+			+" where rum = 1"  
+			+" and  CATEGORY_ID like '" + category_id + "' and ( content like '%" + keyword + "%' or title like '%"+ keyword +"%') order by reg_date " + sort;
+			
+			
+			
 			pst = connection.prepareStatement(query);
 			rs = pst.executeQuery();
 			
@@ -89,13 +102,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if(rs != null) rs.close();
-				if(pst != null) pst.close();
-				if(conn != null) conn.close();
-			} catch(Exception e2) {
-				e2.printStackTrace();
-			}
+			DBUtil.dbClose(rs, pst, connection);
 		}
 		return productList;
 	}
@@ -167,6 +174,8 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				DBUtil.dbClose(rs, pst, conn);
 			}
 			return product_id;
 		}
@@ -259,9 +268,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 				e.printStackTrace();
 			} finally {
 				try {
-					if(rs != null) rs.close();
-					if(pst != null) pst.close();
-					if(conn != null) conn.close();
+					DBUtil.dbClose(rs, pst, conn);
 				} catch(Exception e2) {
 					e2.printStackTrace();
 				}
