@@ -60,7 +60,7 @@
 				<div id="header_center">
 					<div id="search">
 						<input type="text" placeholder="검색어를 입력하세요." id="input_search">
-						<a href="listProduct.do" id="btn_search"><img src="${path}/img/header/search.png" alt="search"></a>
+						<a href="#" id="btn_search"><img src="${path}/img/header/search.png" alt="search"></a>
 					</div>
 				</div>
 				<div id="header_right">
@@ -72,3 +72,4 @@
 				</div>
 			</div>
 		</header>
+		
