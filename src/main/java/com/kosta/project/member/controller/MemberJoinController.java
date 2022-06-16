@@ -20,14 +20,11 @@ public class MemberJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//수정하기
 		request.setCharacterEncoding("utf-8");
 		Member member = makeEmp(request);
 		MemberService service = new MemberService();
 		int result = service.insertMember(member);
 		String path = request.getContextPath();
-//		String msg = result>0 ? "가입을 환영합니다.!": "가입에 실패하셨습니다.";
-//		request.setAttribute("message", msg);
 
 		response.sendRedirect(path+"/jsp/login.jsp");
         
@@ -35,20 +32,18 @@ public class MemberJoinController extends HttpServlet {
 	
 	private Member makeEmp(HttpServletRequest request) {
 		Member emp = new Member();
+		String dash="-";
 		String uId= request.getParameter("userId");
-		String emailId = request.getParameter("emailId");
+		String emailId = "@"+ request.getParameter("emailId");
 		String userId = uId.concat(emailId);
-		System.out.println(emailId);
 		String userName = request.getParameter("userName");
-		System.out.println(userName);
 		String userPassword = request.getParameter("userPassword");
-		System.out.println(userPassword);
 		String nickName = request.getParameter("nickName");
 		System.out.println(nickName);
-		String phone1 = request.getParameter("phone1");
-		String phone2 = request.getParameter("phone1");
-		String phone3 = request.getParameter("phone1");
-		String phone4 = phone1.concat(phone2);
+		String phone1 = request.getParameter("phone1").concat(dash);
+		String phone2 = request.getParameter("phone2");
+		String phone3 = request.getParameter("phone3");
+		String phone4 = phone1.concat(phone2).concat(dash);
 		String phone = phone4.concat(phone3);
 		
 		
