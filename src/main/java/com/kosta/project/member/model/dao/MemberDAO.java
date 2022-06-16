@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import com.kosta.project.member.vo.Member;
 import com.kosta.project.util.DBUtil;
 
@@ -15,21 +19,22 @@ public class MemberDAO {
 	static final String SQL_UDATEMEMBER ="UPDATE TBL_USER SET PHONE = ? WHERE USER_ID = ?";
 	static final String SQL_SELECT_NICK = "select * from tbl_user where nickname=?";
 	static final String SQL_DELETEMEMBER = "delete from tbl_user where user_id=?";
+	static final String SQL_UPDATEPASSWORD = "update tbl_user set user_pw=? where user_id=?";
 	Connection conn;
 	Statement st;
 	PreparedStatement pst;
 	ResultSet rs;
 	int result;
-
+	
 	
 	public Member selectByNick(String nickName) {
 		Member member = null;
 		conn = DBUtil.getConnection();
-		System.out.println("Ŀ�ؼ�3"+conn);
+		System.out.println("conn :" + conn);
 		try {
 			pst = conn.prepareStatement(SQL_SELECT_NICK);
 			pst.setString(1, nickName);
-			System.out.println("�г���" + nickName);
+			System.out.println("�г���" + nickName);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				member = makeEmp(rs);
@@ -46,7 +51,9 @@ public class MemberDAO {
 	public Member selectOneMember(String userId) {
 		Member member = null;
 		conn = DBUtil.getConnection();
+		
 		try {
+		
 			pst = conn.prepareStatement(SQL_SELECT_BYID);
 			System.out.println("selectOneMember:" + userId);
 			pst.setString(1, userId);
@@ -126,4 +133,27 @@ public class MemberDAO {
 		}		
 		return result;
 	}
+
+	public int updatePassword(Member member) {
+		conn = DBUtil.getConnection();
+		
+		try {
+			// �̿ϼ� ������ ��ü����
+			pst = conn.prepareStatement(SQL_UPDATEPASSWORD);
+			// ������ �̿ϼ�
+			pst.setString(1, member.getUserPassword());
+			pst.setString(2, member.getUserId());
+			//���������� : �ϼ��� ������ ������ �ִ� pstmt����(�Ķ���� ����)
+			//DML�� executeUpdate()
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(pst);
+		}
+		return result;
+	}
+
+
+
 }

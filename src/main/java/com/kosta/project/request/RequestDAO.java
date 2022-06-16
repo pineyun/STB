@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.kosta.project.product.Product;
 import com.kosta.project.util.DBUtil;
 
@@ -20,6 +21,7 @@ public class RequestDAO {
 	static final String SQL_ACCEPT_REQUEST = "UPDATE TBL_REQUEST SET REQUEST_STATUS = 'y' WHERE REQUEST_ID = ?";
 	static final String SQL_REFUSE_REQUEST = "UPDATE TBL_REQUEST SET REQUEST_STATUS = 'n' WHERE REQUEST_ID = ?";
 	static final String SQL_CANCEL_REQUEST = "DELETE FROM TBL_REQUEST WHERE REQUEST_ID = ?";
+	static final String SQL_ASK_REQUEST = "INSERT INTO TBL_REQUEST VALUES (REQUEST_SEQ.NEXTVAL, 'n', SYSDATE, ?, ?)";
 	static final String SQL_INCREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number+1 where product_id = ?";
 	static final String SQL_DECREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number-1 where product_id = ?";
 
@@ -159,6 +161,25 @@ public class RequestDAO {
 			return result;
 		}
 	
+	// ASK REQUEST
+		public int askRequest(RequestVO request) {
+			int result = 0;
+			conn = DBUtil.getConnection();
+			try {
+				pst = conn.prepareStatement(SQL_ASK_REQUEST);
+				pst.setString(1, request.getUser_id());
+				pst.setInt(1, request.getProduct_id());
+				
+				result = pst.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.dbClose(rs, pst, conn);
+			}
+			return result;
+		}
+		
 		
 	//INCREASE CURRENT NUMBER
 			public int increaseCurrentNumber(int product_id) {
