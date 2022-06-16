@@ -11,7 +11,9 @@ public class ReplyService {
 		return list;
 	}
 	
-	public void create(Reply reply) {
-		replyDAO.writeReply(reply);
-		}
+	public int create(Reply reply) {
+		return replyDAO.writeReply(reply);
+	}
+	
+	
 }

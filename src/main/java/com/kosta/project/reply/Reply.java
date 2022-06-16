@@ -24,6 +24,19 @@ public class Reply {
 	
 	
 	
+	
+	
+	public Reply(int product_ID, String user_ID, String reply_CONTENT) {
+		super();
+		this.product_ID = product_ID;
+		this.user_ID = user_ID;
+		this.reply_CONTENT = reply_CONTENT;
+	}
+
+
+
+
+
 	public Reply() {
 		super();
 	}
@@ -66,7 +79,7 @@ public class Reply {
 	@Override
 	public String toString() {
 		return "Reply [reply_ID=" + reply_ID + ", reply_DATE=" + reply_DATE + ", product_ID=" + product_ID
-				+ ", user_ID=" + user_ID + "]";
+				+ ", user_ID=" + user_ID + ", content=" + reply_CONTENT + "]";
 	}
 
 	

@@ -21,7 +21,7 @@
 	
 	function call(category_id){
 		 $.ajax({
-			 url:"../listProduct.do",
+			 url:"${path}/listProduct.do",
 			 data:{"category_id":category_id,
 					"keyword":"%", "sort":"desc"},
 			 type:"post",

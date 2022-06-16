@@ -9,7 +9,8 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	crossorigin="anonymous"></script>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -50,10 +51,12 @@
 				</div>
 				<div id=item-sssss>${productView.productContent}</div>
 				<div id=item-buy>
-
+					<input type="hidden" id="like_check" value="like.like_check">
 					<button id=heart>
-						<img src="../img/testimg/heart.svg" alt="조회수">${productView.wishCount}</button>
-					<button id=buy>구매하기</button>
+						<img src="../img/testimg/heart.svg" alt="좋아요버튼" id="likeimg">
+						<p class="wish_count"></p>
+					</button>
+					<button id=buy>${productView.currentNumber+1}/${productView.joinNumber}</button>
 				</div>
 
 
@@ -68,14 +71,16 @@
 
 		<div class="card">
 			<form>
-				<input type="hidden" id="userId" value="${productView.userId}" /> <input
-					type="hidden" id="boardId" value="${productView.productId}" />
+				<%-- <input type="hidden" id="userId" value="${loginMember}" />  --%>
+				<input type="hidden" id="boardId" value="${productView.productId}" />
 				<div class="card-body">
-					<textarea style="width:90%; display:inline-block;" id="reply-content" class="form-control" rows="1"></textarea>
-					<button type="button" style="float:right; " id="btn-reply" class="btn btn-primary">댓글등록</button>
-				</div>				
+					<textarea style="width: 90%; display: inline-block;"
+						id="reply-content" class="form-control" rows="1"></textarea>
+					<button type="button" style="float: right;" id="btn-reply"
+						class="btn btn-primary">댓글등록</button>
+				</div>
 			</form>
-			
+
 		</div>
 
 		<div class=board-reply-wrapper>
@@ -85,15 +90,19 @@
 					<c:forEach var="reply" items="${replyList}">
 						<li id="reply-${reply.reply_ID}"
 							class="list-group-item d-flex justify-content-between">
+							<input type="hidden" id=replyId" value="${reply.reply_ID}" />
+							
 							<div>${reply.reply_CONTENT}</div>
 							<div class="d-flex">
 								<div class="font-italic">
 									작성자 : ${reply.user_ID} <br /> ${reply.reply_DATE} &nbsp;
 								</div>
-								<c:if test="${productView.userId == principal.user.id}">
-									<button onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
-										class="btn btn-warning badge">삭제</button>
-								</c:if>
+								<%-- <c:set target="${loginMember}" property="userId"></c:set>
+								<c:if test="${productView.userId == principal.user.id}"></c:if> --%>
+								<button
+									onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
+									class="btn btn-warning badge" id="btn-replyDelete">삭제</button>
+
 							</div>
 						</li>
 					</c:forEach>
@@ -101,39 +110,99 @@
 			</div>
 		</div>
 	</div>
-	
-<!-- 	<script src="../../js/board.js"></script>
- -->
- <script>
- $("#btn-reply").on('click', function() {
-	 let data = {
-		userId: $("#userId").val(),
-		boardId: $("#boardId").val(),
-		content: $("#reply-content").val()
-		
-    };
-	console.log(data);
-	if($("#reply-content").val().trim() === ""){
-			
-    		alert("댓글을 입력하세요.");
-    		$("#reply-content").val("").focus();
-    }else{
-    $.ajax({
-        type: "POST",
-        url: "${contextPath}/writeReply.do",
-        data: JSON.stringify(data),
-        contentType:"application/json; charset=utf-8",
-        dataType:"json"
-    }).done(function(resp){
-        alert("글쓰기가 완료되었습니다.");
-        location.href="/";
 
-    }).fail(function(error){
-        alert(JSON.stringify(error));
-    });
-    }
+	<!-- 	<script src="../../js/board.js"></script>
+ -->
+	<script>
+$(document).ready(function(){
+	$("#heart").on('click', function() {
+		console.log($("#boardId").val())
+		$.ajax({
+			url: '${contextPath}/likeUpdate.do',
+			type: 'POST',
+			data: {
+				boardId: $("#boardId").val(),
+				
+			},
+			success:function(){
+				likeCount();
+			}, 
+		})
+	})
+	
 });
- </script>
+
+$("#btn-reply").on('click', function() {
+	let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			content: $("#reply-content").val()
+			
+	    };
+		console.log(data);
+		if($("#reply-content").val().trim() === ""){
+
+	    		alert("댓글을 입력하세요.");
+	    		$("#reply-content").val("").focus();
+	    }else{
+		    $.ajax({
+		        type: "POST",
+		        url: "${contextPath}/writeReply.do",
+		        data: data,
+		       // contentType:"application/json; charset=utf-8",
+		       // dataType:"json",
+		        success:function(data,textStatus){
+		        	alert("댓글이 작성되었습니다.");
+		        	var nextPage = "${contextPath}/product/view.do?productId=" + $("#boardId").val();
+					location.href = nextPage;
+					
+		        },
+		        error:function(data,textStatus){
+		        	console.log(data)
+		        	alert("에러발생");
+		        }
+	
+		    });
+	   	}
+});
+
+$("#btn-replyDelete").on('click', function() {
+	let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			replyId: $("#replyId").val()
+			
+	    };
+		console.log(data);
+		if($("#reply-content").val().trim() === ""){
+
+	    		alert("댓글을 입력하세요.");
+	    		$("#reply-content").val("").focus();
+	    }else{
+		    $.ajax({
+		        type: "DELETE",
+		        url: "${contextPath}/writeReply.do",
+		        data: data,
+		       // contentType:"application/json; charset=utf-8",
+		       // dataType:"json",
+		        success:function(data,textStatus){
+		        	alert(data);
+		        	var nextPage = "${contextPath}/product/view.do?productId=" + $("#boardId").val();
+					location.href = nextPage;
+					
+		        },
+		        error:function(data,textStatus){
+		        	alert("에러발생");
+		        }
+	
+		    });
+	   	}
+});
+$("#buy").on('click', function() {
+	alert("hi");
+});
+
+</script>
 
 </body>
 </html>
