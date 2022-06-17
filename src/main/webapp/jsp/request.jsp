@@ -1,28 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>REQUEST PAGE</title>
 <style>
-/*.request_sub_list {display: none; cursor: pointer;}*/
+.request_sub_list {display: none; cursor: pointer;}
 .request_list>table {border:1px solid gray;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	/*$(function(){
-		$(".request_list").click(function(){
-			  $(this).children(".request_sub_list").stop().slideDown(400);
-			});
-		$(".request_list").click(function(){
-			$(this).children(".request_sub_list").stop().slideup(100);
-		});
-	});*/
 	
+	//REQUEST list toggle
+	$( document ).ready( function() {
+    	$( '.request_list' ).click( function() {
+    		$(this).children( '.request_sub_list' ).slideToggle();
+    	} );
+    });
 	
+	//
 	$(function(){
 		$(".cancelRequest").click(function(){
 			var requestid = $(this).attr("data-requestid");
@@ -65,7 +64,7 @@
 							    <td></td>
 						    </c:if>
 						    <c:if test="${before.productTitle != current.productTitle }">
-							    <td>${current.productTitle }</td>
+							    <td><a href="${path}/product/view.do?productId=${current.productId}">${current.productTitle }</a></td>
 							    <td>${current.currentNumber}/${current.joinNumber}</td>
 							    <td>${current.productStatus}</td>
 							    <td>${current.reg_date}</td>
@@ -84,6 +83,11 @@
 					</table>
 				</li>
 				<li class="request_list">신청한 JOIN보기
+				
+				     <c:if test="${empty myrequestList}">
+					     <p>신청한 JOIN이 없습니다.</p>
+					 </c:if>
+					 <c:if test="${not empty myrequestList}">
 					<table class="request_sub_list">
 						<tr>
 							<th>상품명</th>
@@ -92,6 +96,7 @@
 							<th>모집시작일</th>
 							<th>신청일</th>
 					   </tr>
+					
 					 <c:forEach items="${myrequestList}" var="myrequest">
 						 <tr>
 							<td>${myrequest.productTitle}</td>
@@ -99,10 +104,11 @@
 							<td>${myrequest.productStatus}</td>
 							<td>${myrequest.reg_date}</td>
 							<td>${myrequest.request_date}</td>
-							<td><input type="button" value="신청취소" data-productid="${current.productId}" data-requestid="${current.request_id}" class="cancelRequest"></li></td>
+							<td><input type="button" value="신청취소" data-productid="${myrequest.productId}" data-requestid="${myrequest.request_id}" class="cancelRequest"></li></td>
 						</tr>	 
 					</c:forEach>
 					</table>
+					</c:if>
 					<!-- <ul class="request_sub_list">
 					 <li>상품명 현재인원/모집인원 상품상태</li>
 					 <c:forEach items="${myrequestList}" var="myrequest">
