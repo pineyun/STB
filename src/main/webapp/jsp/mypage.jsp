@@ -9,9 +9,9 @@
 <div id="myPage-container">
 	<ul class="myPageBar">
 		<li id="memberInfo"><a href="">내정보(개인)</a></li>
-		<li id="businessInfo"><a href="">내정보(사업자)</a></li>
+		<li id="wishList"><a href="">위시리스트</a></li>
 		<li id="myJoin">나의 JOIN</li>
-		<li id="InfoPost"><a href="">정보게시물</a></li>
+		<li id="InfoPost"><a href="">고객센터</a></li>
 	</ul>
 	<div id="myPageSession">
 		<div id="memberUpdate-container">
@@ -20,39 +20,27 @@
 				<table>
 					<tr>
 						<th>아이디</th>
-						<td><input type="text" name="userId" id="userId" value=""
-							readonly> <!-- 읽기만가능 --></td>
+						<td><c:set var="loginMember" value="${loginMember}" />
+						<input type="text" name="userId" id="userId"
+							value="${loginMember.userId}" readonly> <!-- 읽기만가능 --></td>
 						<!-- 사용자가 입력했던 정보가져오기 -->
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td><input type="text" name="ncikName" id="ncikName" value=""
-							readonly><br></td>
+						<td><input type="text"  name="ncikName" id="ncikName" value="${loginMember.nickName}" readonly><br></td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td><input type="tel" oninput="autoTel(thisvalue = this)"
-							placeholder="(-제외)01012345678" name="phone" id="phone"
-							maxlength="13" value="" required><br></td>
+						<td><input type="tel" oninput="autoTel(thisvalue = this)" placeholder="(-제외)01012345678" name="phone" id="phone" maxlength="13" value="" required><br></td>
 					</tr>
-
 				</table>
-				
 			</form>
 			<div id="form-button">
-			<input type="button" onclick="updateMember();" value="수정" /> <input
-				type="button" onclick="location.href='" value="비밀번호변경" />
-			<!-- 회원탈퇴폼 -->
-			<form id="memberDelFrm"
-				action="<%=request.getContextPath()%>/myPage/memberDelete"
-				method="POST">
-				<input type="hidden" name="memberId" value="" />
-			</form>
+				<input type="button" onclick="updateMember();" value="수정"/>
+				<input type="button" onclick="location.href='${path}/member/updatePassword'" value="비밀번호변경"/>
+				<input type="button" onclick="deleteMember();" value="탈퇴"/>
+			</div>
 		</div>
-
-
-		</div>
-		
 	</div>
 </div>
 <script>
@@ -67,6 +55,10 @@
 			});
 		});
 </script>
+<!-- 회원탈퇴폼 -->
+<form id="memberDelFrm" action="${path}/member/memberDelete" method="POST">
+	<input type="hidden" name="userId" value="${loginMember.userId}" />
+</form>
 <script>
 
 // 일반회원 수정
@@ -74,7 +66,7 @@ const updateMember = () => {
 	// 폼의 action값 할당 후 제출
 	//console.log("회원정보 수정");
 	$(memberUpdateFrm)
-		.attr("action", "<%=request.getContextPath()%>/member/memberUpdate")
+		.attr("action", "<%=request.getContextPath()%>/member/MemberUpdate")
 		.submit();
 };
 
@@ -106,5 +98,3 @@ const deleteMember = () => {
 };
 
 </script>
-</body>
-</html>

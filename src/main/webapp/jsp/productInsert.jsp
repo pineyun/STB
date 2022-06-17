@@ -23,7 +23,7 @@
 </script>
 		<section id="productInsert">
 			<h1>조인 만들기</h1>
-			<form action="productInsert.do" method="post" enctype="multipart/form-data">
+			<form action="${path}/jsp/productInsert.do" method="post" enctype="multipart/form-data">
 				<div class="form_group">
 					<label>카테고리</label>
 					<select name="category_id">
