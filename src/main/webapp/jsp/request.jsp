@@ -83,6 +83,11 @@
 					</table>
 				</li>
 				<li class="request_list">신청한 JOIN보기
+				
+				     <c:if test="${empty myrequestList}">
+					     <p>신청한 JOIN이 없습니다.</p>
+					 </c:if>
+					 <c:if test="${not empty myrequestList}">
 					<table class="request_sub_list">
 						<tr>
 							<th>상품명</th>
@@ -91,6 +96,7 @@
 							<th>모집시작일</th>
 							<th>신청일</th>
 					   </tr>
+					
 					 <c:forEach items="${myrequestList}" var="myrequest">
 						 <tr>
 							<td>${myrequest.productTitle}</td>
@@ -102,6 +108,7 @@
 						</tr>	 
 					</c:forEach>
 					</table>
+					</c:if>
 					<!-- <ul class="request_sub_list">
 					 <li>상품명 현재인원/모집인원 상품상태</li>
 					 <c:forEach items="${myrequestList}" var="myrequest">

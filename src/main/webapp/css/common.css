@@ -18,7 +18,7 @@ section {
 h1, a, p, li, em, input {
 	font-family: 'Nanum Gothic', sans-serif;
 	color: black;
-	letter-spacing: -2px;
+	letter-spacing: -1px;
 }
 
 .skip {
@@ -152,7 +152,7 @@ header {
 
 #header_center {
 	float: left;
-	margin-top: 15px;
+	margin-top: 17px;
 	width: 440px;
 	height: 48px;
 
@@ -196,6 +196,7 @@ header {
 }
 
 #btn_mypage {
+	float: left;
 	margin-right: 15px;
 }
 #btn_mypage img {
@@ -218,7 +219,7 @@ section {
 	z-index:0;
 	width: 1024px;
 	margin: 0 auto;
-	padding: 100px 30px;
+	padding: 50px 30px;
 }
 
 

@@ -4,16 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel=stylesheet href="../css/reset.css">
-<link rel=stylesheet href="../css/common.css">
-<link rel=stylesheet href="../css/productInsert.css">
-<link rel=stylesheet href="${path}/css/boardList.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>조인 만들기</title>
+<link rel=stylesheet href="${path}/css/productInsert.css">
+
 <script>
 	/* 총액, 인원 입력하면 자동으로 1/n 계산해서 보여주기 */
 	$(function(){
@@ -25,17 +17,11 @@
 				if(join_number==0) 
 					$("#divide_price").html("")
 				else 
-					$("#divide_price").html(Math.floor(price/join_number));
+					$("#divide_price").html(Math.floor(price/join_number)+"원");
 			});
 	});
 </script>
-</head>
-<body>
-	<div id="wrap">
-		<%@ include file="/jsp/header.jsp"%>
-		<div id="here">
 		<section id="productInsert">
-		
 			<h1>조인 만들기</h1>
 			<form action="productInsert.do" method="post" enctype="multipart/form-data">
 				<div class="form_group">
@@ -48,39 +34,39 @@
 				</div>
 				<div class="form_group">
 					<label>제목</label>
-					<input type="text" name="title" maxlength="50">
+					<input type="text" name="title" maxlength="50" class="input_typing">
 				</div>
 				<div class="form_group">
 					<label>총액</label>
-					<input type="number" name="price" id="price">
+					<input type="number" name="price" id="price" class="input_typing">
 				</div>
 				<div class="form_group">
 					<label>조인인원</label>
-					<input type="number" name="join_number"  id="join_number"_>
+					<input type="number" name="join_number"  id="join_number" class="input_typing">
 				</div>
 				<div class="form_group">
-					<label>예상 1/N가격</label>
+					<label id="divide_label">1/N 가격</label>
 					<p id="divide_price"></p>
 				</div>
 				<div class="form_group">
 					<label>사진1</label>
-					<input type="file" name="photos" accept="image/*">
+					<input type="file" name="photos" accept="image/*" class="input_file">
 				</div>
 				<div class="form_group">
 					<label>사진2</label>
-					<input type="file" name="photos" accept="image/*">
+					<input type="file" name="photos" accept="image/*" class="input_file">
 				</div>
 				<div class="form_group">
 					<label>사진3</label>
-					<input type="file" name="photos" accept="image/*">
+					<input type="file" name="photos" accept="image/*" class="input_file">
 				</div>
 				<div class="form_group">
 					<label>사진4</label>
-					<input type="file" name="photos" accept="image/*">
+					<input type="file" name="photos" accept="image/*" class="input_file">
 				</div>
 				<div class="form_group">
 					<label>사진5</label>
-					<input type="file" name="photos" accept="image/*">
+					<input type="file" name="photos" accept="image/*" class="input_file">
 				</div>
 				<div class="form_group">
 					<label>내용</label>
@@ -94,8 +80,3 @@
 			</form>
 			
 		</section>
-		</div>
-		<%@ include file="/jsp/footer.jsp"%>
-	</div>
-</body>
-</html>
