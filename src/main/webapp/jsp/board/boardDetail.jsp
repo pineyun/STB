@@ -52,10 +52,24 @@
 				<div id=item-sssss>${productView.productContent}</div>
 				<div id=item-buy>
 					<input type="hidden" id="like_check" value="like.like_check">
-					<button id=heart>
-						<img src="../img/testimg/heart.svg" alt="좋아요버튼" id="likeimg">
-						<p class="wish_count"></p>
-					</button>
+
+					<c:if test="${productView.wish_check == 1 }">
+						<button id="heart"  class="heart"  data-like="-1" >
+							<img src="../img/testimg/eye-outline.svg" alt="좋아요버튼"  clas="likeimg">
+							<p class="wish_count"></p>
+						</button>
+					</c:if>
+
+					<c:if test="${productView.wish_check == 0 }">
+						<button id="heart"  class="heart" data-like="+1" >
+							<img src="../img/testimg/heart.svg" alt="좋아요버튼"  class="likeimg">
+							<p class="wish_count"></p>
+						</button>
+					</c:if>
+
+
+
+
 					<button id=buy>${productView.currentNumber+1}/${productView.joinNumber}</button>
 				</div>
 
@@ -89,9 +103,9 @@
 				<ul id="reply--box" class="list-group">
 					<c:forEach var="reply" items="${replyList}">
 						<li id="reply-${reply.reply_ID}"
-							class="list-group-item d-flex justify-content-between">
-							<input type="hidden" id=replyId" value="${reply.reply_ID}" />
-							
+							class="list-group-item d-flex justify-content-between"><input
+							type="hidden" id=replyId " value="${reply.reply_ID}" />
+
 							<div>${reply.reply_CONTENT}</div>
 							<div class="d-flex">
 								<div class="font-italic">
@@ -103,8 +117,7 @@
 									onclick="index.replyDelete(${productView.productId}, ${reply.reply_ID})"
 									class="btn btn-warning badge" id="btn-replyDelete">삭제</button>
 
-							</div>
-						</li>
+							</div></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -115,17 +128,20 @@
  -->
 	<script>
 $(document).ready(function(){
-	$("#heart").on('click', function() {
-		console.log($("#boardId").val())
+	$(".heart").on('click', function() {
+		var like = $(this).attr("data-like");
+		console.log($("#boardId").val() + like)
 		$.ajax({
-			url: '${contextPath}/likeUpdate.do',
+			url: '${contextPath}/like/likeUpdate.do',
 			type: 'POST',
 			data: {
 				boardId: $("#boardId").val(),
+				"like01" : like
 				
 			},
-			success:function(){
-				likeCount();
+			success:function(responseData){
+				 alert(responseData);
+				 location.href =  "${contextPath}/product/view.do?productId=" +  $("#boardId").val();
 			}, 
 		})
 	})
