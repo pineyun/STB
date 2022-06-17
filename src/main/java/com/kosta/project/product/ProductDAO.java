@@ -28,8 +28,12 @@ static final String SQL_CATEGORY_NAME = "SELECT * FROM TBL_CATEGORY ORDER BY 1";
 static final String SQL_MAX_Product_ID = "select max(PRODUCT_ID) from tbl_product";
 static final String SQL_INSERT_PRODUCT_Images = "insert into tbl_product_images values(img_seq.nextval, ?, ?)";
 
-static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.PRODUCT_ID = ?";
-
+static final String SQL_SELECT_PRODUCT = 
+"SELECT tp.*, nvl(uw.WISH_CHECK,0) WISH_CHECK  FROM TBL_PRODUCT tp , TBL_USER_WISH uw "+
+"WHERE tp.PRODUCT_ID = ? "+
+"and tp.PRODUCT_ID = uw.PRODUCT_ID(+) "+
+"and uw.user_id(+) = ? ";
+ 
   
 	Connection conn;
 	Statement st;
@@ -226,7 +230,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 		
 	//승민	
   
-		public Product selectProductById(int product_id){
+		public Product selectProductById(int product_id, String user_id){
 			Product viewProduct = new Product();
 			Connection connection = null;
 			pst = null;
@@ -236,6 +240,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 				String query = SQL_SELECT_PRODUCT;
 				pst = connection.prepareStatement(query);
 				pst.setInt(1, product_id);
+				pst.setString(2, user_id);
 				rs = pst.executeQuery();
 				
 				rs.next();
@@ -250,6 +255,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 					int joinNumber = rs.getInt("join_Number");
 					String userId = rs.getString("user_Id");
 					int category = rs.getInt("category_id");
+					int wishCheck = rs.getInt("wish_Check");
 					
 					viewProduct.setproductId(productId);
 					viewProduct.setproductTitle(productTitle);
@@ -262,6 +268,7 @@ static final String SQL_SELECT_PRODUCT = "SELECT * FROM TBL_PRODUCT tp WHERE tp.
 					viewProduct.setJoinNumber(joinNumber);
 					viewProduct.setUserId(userId);
 					viewProduct.setCategory(category);
+					viewProduct.setWish_check(wishCheck);
 					System.out.println(viewProduct.toString());
 				
 			} catch(Exception e) {

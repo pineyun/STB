@@ -13,6 +13,13 @@ public class WishDAO {
 			+ "SET WISH_CHECK = WISH_CHECK + 1"
 			+ "WHERE USER_ID ='admin'"
 			+ "AND PRODUCT_ID =1";
+	
+	 
+
+	static final String SQL_WISH_INSERT = "INSERT INTO TBL_USER_WISH VALUES (WISH_seq.nextVal, sysdate, ?, ?, 1)"
+			+ "";
+
+	
 	Connection conn;
 	Statement st;
 	PreparedStatement pst;
@@ -20,16 +27,40 @@ public class WishDAO {
 	int result;
 
 	
-	/*
-	 * public int writeReply(int userId, int productId) {
-	 * 
-	 * Connection connection = null; pst = null; rs = null; try { connection =
-	 * DBUtil.getConnection(); pst = conn.prepareStatement(ReplyWrite);
-	 * pst.setInt(1, reply.getProduct_ID()); pst.setString(2, reply.getUser_ID());
-	 * pst.setString(3, reply.getReply_CONTENT()); return result =
-	 * pst.executeUpdate(); } catch (Exception e) { e.printStackTrace(); } finally {
-	 * try { if (rs != null) rs.close(); if (pst != null) pst.close(); if (conn !=
-	 * null) conn.close(); } catch (Exception e2) { e2.printStackTrace(); } } return
-	 * -1; }
-	 */
+	public int likePlus(int product, String like01) {
+ 
+		 String SQL_LIKE_COUNT_PLUS = "UPDATE TBL_PRODUCT SET WISH_COUNT = nvl(WISH_COUNT,0) " + like01
+					+ "WHERE PRODUCT_ID = ?";
+		 
+		try {
+			conn = DBUtil.getConnection();
+			pst = conn.prepareStatement(SQL_LIKE_COUNT_PLUS);
+			pst.setInt(1, product);
+			result = pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(rs, pst, conn);
+		}
+		
+		return result;
+	}
+	
+	public int wishInsert(int productId, String userId) {
+		 
+		try {
+			conn = DBUtil.getConnection();
+			pst = conn.prepareStatement(SQL_WISH_INSERT);
+			pst.setInt(1, productId);
+			pst.setString(2, userId);
+
+			result = pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(rs, pst, conn);
+		}
+		
+		return result;
+	}
 }

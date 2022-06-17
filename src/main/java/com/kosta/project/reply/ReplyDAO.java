@@ -67,6 +67,7 @@ public class ReplyDAO {
 				e2.printStackTrace();
 			}
 		}
+		System.out.println(replyList);
 		return replyList;
 	}
 

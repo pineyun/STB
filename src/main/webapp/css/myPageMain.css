@@ -13,6 +13,7 @@ h1 {
 .myPageBar {
 	
 	width: 150px;
+	height: 500px;
 	border-right : 1px solid #ececec;
 	float: left;
 	margin-right: 80px;

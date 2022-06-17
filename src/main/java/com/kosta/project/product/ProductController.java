@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kosta.project.member.vo.Member;
 import com.kosta.project.reply.Reply;
 import com.kosta.project.reply.ReplyService;
 
@@ -27,7 +29,7 @@ public class ProductController extends HttpServlet {
 	
 	public void init() throws ServletException{
 		productService = new ProductService();
-		
+		replyService = new ReplyService();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -43,6 +45,12 @@ public class ProductController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String action = request.getServletPath();
 		System.out.println("action:" + action);
+		
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginMember");
+		
+		
 		try {
 			List<Product> productList = new ArrayList<Product>();
 			if(action == null) {
@@ -57,9 +65,14 @@ public class ProductController extends HttpServlet {
 			} else if(action.equals("/product/view.do")) {
 				System.out.println("view호출");
 				String productId = request.getParameter("productId");
-				product = productService.view(Integer.parseInt(productId));
+				
+				System.out.println(productId);
+				List<Reply> replylist = replyService.replyList(Integer.parseInt(productId));
+				product = productService.view(Integer.parseInt(productId), member.getUserId());
 				request.setAttribute("productView", product);
+				request.setAttribute("replyList", replylist);
 				nextPage = "/jsp/board/boardDetail.jsp";
+				
 			} else if (action.equals("/writeReply.do")) {
 				/*
 				 * String jsonInfo = request.getParameter("jsonInfo"); try { JSONParser

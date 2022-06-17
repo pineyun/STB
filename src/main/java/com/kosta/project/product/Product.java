@@ -20,6 +20,7 @@ public class Product {
 	private String request_status;
 	private int request_id;
 	private String file_name;
+	private int wish_check;
 	
 	public String getFile_name() {
 		return file_name;
@@ -212,6 +213,16 @@ public class Product {
 
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
+	}
+
+
+	public int getWish_check() {
+		return wish_check;
+	}
+
+
+	public void setWish_check(int wish_check) {
+		this.wish_check = wish_check;
 	}
 
 

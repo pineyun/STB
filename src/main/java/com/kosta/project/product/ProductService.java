@@ -40,8 +40,8 @@ public class ProductService {
 		return productDAO.insertProductImages(pid, imageList);
 	}
 
-	public Product view(int productId) {
-		Product viewProduct = productDAO.selectProductById(productId);
+	public Product view(int productId, String user_id) {
+		Product viewProduct = productDAO.selectProductById(productId, user_id);
 		return viewProduct;
 
 	}

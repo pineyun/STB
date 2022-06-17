@@ -45,6 +45,10 @@
 			<h1>JOIN 관리하기</h1>
 			<ul id="request_content">
 				<li class="request_list">내가 만든 JOIN보기
+					<c:if test="${empty myjoinList}">
+					     <p>만든 JOIN이 없습니다.</p>
+					 </c:if>
+					 <c:if test="${not empty myjoinList}">
 					<table class="request_sub_list">
 						<tr>
 							<th>상품명</th>
@@ -81,6 +85,7 @@
 						</tr>	 
 					</c:forEach>						
 					</table>
+					</c:if>
 				</li>
 				<li class="request_list">신청한 JOIN보기
 				

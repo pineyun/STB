@@ -11,61 +11,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kosta.project.member.vo.Member;
 import com.kosta.project.product.Product;
 import com.kosta.project.product.ProductService;
 
-@WebServlet("/reply")
+@WebServlet("/like/likeUpdate.do")
 
-public class ReplyController extends HttpServlet{
+public class ReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-		ProductService productService;
-		Product product;
-		Reply reply;
-		ReplyService replyService;
+	ProductService productService;
+	Product product;
+	Reply reply;
+	ReplyService replyService;
+	WishService wishService;
 
-		public void init() throws ServletException {
-			productService = new ProductService();
-			replyService = new ReplyService();
-		}
+	public void init() throws ServletException {
+		productService = new ProductService();
+		replyService = new ReplyService();
+		wishService = new WishService();
+	}
 
-		protected void doGet(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			doHandle(request, response);
-		}
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		protected void doPost(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			doHandle(request, response);
-		}
-
-		private void doHandle(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			String nextPage = "";
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
-			String action = request.getServletPath();
-			System.out.println("action:" + action);
-
-			List<Product> productList = new ArrayList<Product>();
-			if (action == null) {
-				String userId = request.getParameter("userId");
-				int productId = Integer.parseInt(request.getParameter("boardId"));
-				String content = request.getParameter("content");
-
-				System.out.println(content);
-				reply = new Reply(productId, userId, content);
-				replyService.create(reply);
-
-				PrintWriter out = response.getWriter();
-				out.print("OK");
-				return;
-			} 
-
-			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-			dispatch.forward(request, response);
-		}
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("loginMember");
+		int productId = Integer.parseInt(request.getParameter("boardId"));
+		String like01 = request.getParameter("like01");
+ 
+		wishService.like(productId, member.getUserId(), like01);
+		
+		//String nextPage = "view.do?productId=" + productId;
+		//response.sendRedirect(nextPage);
+		PrintWriter out = response.getWriter();
+		out.print("OK");
 
 	}
 
+}
