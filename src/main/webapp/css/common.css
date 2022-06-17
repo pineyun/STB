@@ -215,11 +215,11 @@ header {
 
 
 /*section*/
-section {
+#section_wrap {
 	z-index:0;
 	width: 1024px;
 	margin: 0 auto;
-	padding: 50px 30px;
+	padding: 100px 30px;
 }
 
 
