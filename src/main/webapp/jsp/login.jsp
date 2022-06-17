@@ -4,6 +4,7 @@
 <%@ page import="java.net.URLEncoder"%>
 <%@ page import="java.security.SecureRandom"%>
 <%@ page import="java.math.BigInteger"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,20 +32,18 @@ body {
 }
 
 #wrap {
-	padding-top: 300px;
+	padding-top: 250px;
 	width: 100%;
 	margin: 0 auto;
 }
 
-h1 {
-	font-size: 42px;
-	font-weight: 900;
-	margin-bottom: 15px;
+#logo {
+	margin-bottom: 20px;
 }
 
 p {
 	font-size: 18px;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 .input_login {
@@ -95,11 +94,10 @@ a {
 	margin-right: 100px;
 }
 
-#naver_id_login{
+#naver_id_login {
 	display: block;
 	border-radius: 15px;
 	margin-bottom: 10px;
-
 }
 </style>
 
@@ -130,36 +128,37 @@ a {
 	<!--여기까지.네이버  -->
 
 	<div id="wrap">
-		<a href="index.jsp"><h1>N분의1</h1></a>
+		<p id="logo">
+			<img src="${path}/img/header/logo.png" alt="N분의1">
+		</p>
 		<p>
 			함께하면 가벼운 소비,<br>세상의 모든 소비를 나눠보세요.
 		</p>
-		<c:set var="path" value="${pageContext.request.contextPath }" />
+
 		<form method="post" action="${path}/member/login">
 			<input class="input_login" type="text" name="userId" id="user_Id"
 				placeholder="이메일주소를 입력하세요."> <input class="input_login"
 				type="password" name="password" id="password"
-				placeholder="비밀번호를 입력하세요.">
+				placeholder="비밀번호를 입력하세요."> <input class="btn_login"
+				type="submit" value="로그인">
 			<div id="imgNaver">
 				<!-- <input type="image" class="btn_login" alt="" src="../img/header/btnG_완성형2.png"  height=40px; > -->
 				<!-- <a href=""><img height="50" src="../img/header/btnG_완성형2.png"/ class="btn_login" id="naver_id_login"></a> -->
-				<div id="naver_id_login" ></div>
+				<div id="naver_id_login"></div>
 				<script type="text/javascript">
 					var naver_id_login = new naver_id_login(
 							"eqagp0fQve1EtqpGZsux",
 							"http://localhost:9090/STB/jsp/index.jsp");
 					var state = naver_id_login.getUniqState();
 					naver_id_login.setButton("white", 4, 75);
-					naver_id_login
-							.setDomain();
+					naver_id_login.setDomain();
 					naver_id_login.setState(state);
 					naver_id_login.setPopup();
 					naver_id_login.init_naver_id_login();
-					
 				</script>
 
 			</div>
-			<input class="btn_login" type="submit" value="로그인">
+
 
 		</form>
 		<div id="link">
