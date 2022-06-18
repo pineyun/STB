@@ -22,6 +22,7 @@
 					<!--cnt-->
 
 					<c:forEach begin="1" end="${imageList.size()}"  var="i">
+
 						<li><img src="${path}/uploads/${imageList[i].file_name}" alt="상품">
 						</li>
 					</c:forEach>
@@ -68,9 +69,8 @@
 						</button>
 					</c:if>
 
-
 					<button id=buy class="askRequest" data-productid="${productView.productId}" data-currentNumber="${productView.currentNumber}" data-joinNumber="${productView.joinNumber}" data-productStatus="${productView.productStatus}">조인요청</button>
-				
+		
 				</div>
 
 
@@ -128,6 +128,7 @@
 	
 	$(function(){
 		$(".askRequest").click(function(){
+
 			
 			var response = confirm("조인을 요청하시겠습니까?\n승인 후 조인이 완료됩니다.");
 			var productId = $(this).attr("data-productid");
@@ -145,6 +146,7 @@
 					alert("조인 요청을 취소하였습니다.");
 				}
 			}
+
 		});
 		
 	});
@@ -270,8 +272,24 @@ $(document).ready(function(){
 		indi.children[before].classList.remove("on");
 		indi.children[after].classList.add("on");
 	}
-	
-	
+});
+
+$(".heart").on('click', function() {
+	var like = $(this).attr("data-like");
+	console.log($("#boardId").val() + like)
+	$.ajax({
+		url: '${path}/like/likeUpdate.do',
+		type: 'POST',
+		data: {
+			boardId: $("#boardId").val(),
+			"like01" : like
+			
+		},
+		success:function(responseData){
+			 alert(responseData);
+			 location.href =  "${path}/product/view.do?productId=" +  $("#boardId").val();
+		}, 
+	})
 });
 
 $(".heart").on('click', function() {
