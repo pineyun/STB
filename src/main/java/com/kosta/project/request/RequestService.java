@@ -17,9 +17,12 @@ public class RequestService {
 		List<Product> requestList = requestDAO.selectMyRequest(user_id);
 		return requestList;
 	}
-	//승낙하기
-	public int acceptRequest(int request_id) {
-		return requestDAO.acceptRequest(request_id);
+	//승낙하기 (N을 Y로 바꾸고, CURRENT NUMBER + 1)
+	public int acceptRequest(int request_id, int product_id) {
+		if(requestDAO.acceptRequest(request_id)>0) {
+			return requestDAO.increaseCurrentNumber(product_id);
+		} 
+		return 0;
 	}
 	
 	//승낙 취소하기 ? (N으로 바꾸기)
@@ -40,11 +43,23 @@ public class RequestService {
 	
 	//신청 취소하기
 	public int cancelRequest(int request_id, int productid) {
-		
-		if(requestDAO.cancelRequest(request_id)>0) {
-			return requestDAO.decreaseCurrentNumber(productid); 
-		}
-				 
-		return 0;
+		return requestDAO.cancelRequest(request_id);
 	}
+	
+	//현재 인원 -1
+		public int decreaseCurrentNumber(int product_id) {
+			return requestDAO.decreaseCurrentNumber(product_id);
+	}
+	
+	
+	//조인 닫기(모집완료)
+	public int closeJoin(int product_id) {
+		return requestDAO.closeJoin(product_id);
+	}
+	
+	//조인 열기(모집중)
+		public int openJoin(int product_id) {
+			return requestDAO.openJoin(product_id);
+		}
+	
 }
