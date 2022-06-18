@@ -26,16 +26,15 @@
 		$(".cancelRequest").click(function(){
 			var requestid = $(this).attr("data-requestid");
 			var productid = $(this).attr("data-productid");
-			console.log(productid);
 			location.href="manageRequest.do?manage=cancel&requestid="+requestid+"&productid="+productid;
 		});
+		
 		$("#acceptRequest").click(function(){
 			var requestid = $(this).attr("data-requestid");
 			location.href="manageRequest.do?manage=accept&requestid="+requestid;
 		});
 	});
-	
-	
+
 </script>
 </head>
 <body>

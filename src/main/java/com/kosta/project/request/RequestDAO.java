@@ -168,7 +168,7 @@ public class RequestDAO {
 			try {
 				pst = conn.prepareStatement(SQL_ASK_REQUEST);
 				pst.setString(1, request.getUser_id());
-				pst.setInt(1, request.getProduct_id());
+				pst.setInt(2, request.getProduct_id());
 				
 				result = pst.executeUpdate();
 

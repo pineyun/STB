@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <link rel=stylesheet href="${path}/css/productInsert.css">
-
 <script>
 	/* 총액, 인원 입력하면 자동으로 1/n 계산해서 보여주기 */
 	$(function(){

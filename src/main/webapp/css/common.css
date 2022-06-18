@@ -222,6 +222,10 @@ header {
 	padding: 100px 30px;
 }
 
+.nonelistresults{
+	display: inline-block;
+	margin-top: 200px;
+}
 
 /*footer*/
 footer {

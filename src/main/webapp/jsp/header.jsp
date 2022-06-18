@@ -49,11 +49,7 @@
   		  $(this).children(".dropdown-content").stop().slideUp(100);
   		});
   		
-  		
-  		
-  		 
-  		
-  		
+  		/*header 내 검색*/  		
   		$("#input_search").on("keydown", function(event){
 			  
 			  if(event.keyCode == 13) {  
@@ -69,7 +65,7 @@
 					 });
 			  }
 		  });
-  		
+
   		$("#btn_search").on("click", function(event){
 			  
 			 $.ajax({
@@ -86,7 +82,7 @@
 		  });
   		
 	});
-	
+	/* section 내 검색 */
 	function call(category_id){
 		 $.ajax({
 			 url:"${path}/listProduct.do",
@@ -99,7 +95,6 @@
 		 });
 	}
 	
-		
 	
 </script>
 	

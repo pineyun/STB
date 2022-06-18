@@ -29,8 +29,14 @@ public class RequestService {
 	
 	//신청하기
 	public int askRequest(RequestVO request) {
-		return requestDAO.askRequest(request);
+		if( requestDAO.askRequest(request)>0) {
+			return requestDAO.increaseCurrentNumber(request.getProduct_id());
+		};
+		
+		return 0;
 	}
+	
+	
 	
 	//신청 취소하기
 	public int cancelRequest(int request_id, int productid) {

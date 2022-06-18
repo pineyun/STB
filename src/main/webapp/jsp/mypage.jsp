@@ -60,7 +60,6 @@
 	<input type="hidden" name="userId" value="${loginMember.userId}" />
 </form>
 <script>
-
 // 일반회원 수정
 const updateMember = () => {
 	// 폼의 action값 할당 후 제출

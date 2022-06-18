@@ -2,6 +2,7 @@ package com.kosta.project.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,11 +28,13 @@ public class DBUtil {
 	public static Connection getConnection() {
 		Connection conn = null;
 		String url="jdbc:oracle:thin:@db20220602160542_high?TNS_ADMIN=C:/Wallet_DB20220602160542/";
+		//String url="jdbc:oracle:thin:@localhost:1521:xe";
 		String userid="admin" , password= "KostaKosta33";
+		//String userid="stb", password="1234";
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(url, userid, password);
-			System.out.println(conn+"");
+			System.out.println(conn+" 연결됨");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
