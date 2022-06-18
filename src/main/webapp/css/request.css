@@ -1,0 +1,43 @@
+@charset "UTF-8";
+#request_content {
+	width: 100%;
+	height: 100%;
+}
+
+.request_list{
+	margin-top: 35px;
+	margin-left: 15px;
+	cursor: pointer;
+}
+.request_list > h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	
+}
+.request_list > .request_sub_list {
+	border: none;
+	display:inline-block;
+}
+
+.request_list > .request_sub_list > tr> th {
+	display: inline-block;
+	height: 25px;
+	text-align: center;
+}
+.request_list > .request_sub_list > .ptitle {
+	display: inline-block;
+	width: 300px;
+}
+.request_list > .request_sub_list > .pnumber {
+	display: inline-block;
+	width: 50px;
+}
+.request_list > .request_sub_list > .status {
+	display: inline-block;
+	width: 50px;
+}
+.request_list > .request_sub_list > td {
+	
+	text-align: center;
+	height:20px;
+}

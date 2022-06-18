@@ -12,7 +12,7 @@ import com.kosta.project.product.Product;
 import com.kosta.project.util.DBUtil;
 
 public class RequestDAO {
-	static final String SQL_SELECT_MYJOIN = "SELECT TBL_PRODUCT.PRODUCT_ID, TBL_PRODUCT.TITLE, TBL_PRODUCT.CURRENT_NUMBER, TBL_PRODUCT.JOIN_NUMBER, TBL_PRODUCT.PRODUCT_STATUS , TBL_PRODUCT.REG_DATE, TBL_USER.NICKNAME, TBL_REQUEST.REQUEST_ID, TBL_REQUEST.REQUEST_STATUS\r\n"
+	static final String SQL_SELECT_MYJOIN = "SELECT TBL_PRODUCT.PRODUCT_ID, TBL_PRODUCT.TITLE, TBL_PRODUCT.CURRENT_NUMBER, TBL_PRODUCT.JOIN_NUMBER, TBL_PRODUCT.PRODUCT_STATUS , TBL_PRODUCT.REG_DATE, TBL_USER.NICKNAME, TBL_REQUEST.REQUEST_ID, TBL_REQUEST.REQUEST_STATUS, TBL_REQUEST.REQUEST_DATE "
 			+ "FROM TBL_PRODUCT LEFT OUTER JOIN TBL_REQUEST ON (TBL_PRODUCT.PRODUCT_ID = TBL_REQUEST.PRODUCT_ID)\r\n"
 			+ "LEFT OUTER JOIN TBL_USER ON (TBL_REQUEST.USER_ID = TBL_USER.USER_ID)\r\n"
 			+ "WHERE TBL_PRODUCT.USER_ID = ? order by tbl_product.reg_date desc, tbl_request.request_date desc";
@@ -24,7 +24,10 @@ public class RequestDAO {
 	static final String SQL_ASK_REQUEST = "INSERT INTO TBL_REQUEST VALUES (REQUEST_SEQ.NEXTVAL, 'n', SYSDATE, ?, ?)";
 	static final String SQL_INCREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number+1 where product_id = ?";
 	static final String SQL_DECREASE_CURRENT_NUMBER = "update tbl_product set current_number=current_number-1 where product_id = ?";
+	static final String SQL_CLOSE_JOIN = "UPDATE TBL_PRODUCT SET PRODUCT_STATUS = '모집완료' WHERE PRODUCT_ID = ?";
+	static final String SQL_OPEN_JOIN = "UPDATE TBL_PRODUCT SET PRODUCT_STATUS = '모집중' WHERE PRODUCT_ID = ?";
 
+	
 	Connection conn;
 	Statement st;
 	PreparedStatement pst;
@@ -53,6 +56,7 @@ public class RequestDAO {
 				product.setRequest_status(rs.getString("request_status"));
 				product.setRequest_id(rs.getInt("request_id"));
 				product.setproductId(rs.getInt("product_id"));
+				product.setRequest_date(rs.getDate("request_date"));
 
 				requestList.add(product);
 			}
@@ -134,7 +138,7 @@ public class RequestDAO {
 			try {
 				pst = conn.prepareStatement(SQL_REFUSE_REQUEST);
 				pst.setInt(1, request_id);
-				rs = pst.executeQuery();
+				result = pst.executeUpdate();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -168,7 +172,7 @@ public class RequestDAO {
 			try {
 				pst = conn.prepareStatement(SQL_ASK_REQUEST);
 				pst.setString(1, request.getUser_id());
-				pst.setInt(1, request.getProduct_id());
+				pst.setInt(2, request.getProduct_id());
 				
 				result = pst.executeUpdate();
 
@@ -214,5 +218,36 @@ public class RequestDAO {
 			}
 			return result;
 		}
+	
+	//CLOSE JOIN (PRODUCT_STATUS -> 모집완료)
+		public int closeJoin(int product_id) {
+			int result = 0;
+			conn = DBUtil.getConnection();
+			try {
+				pst = conn.prepareStatement(SQL_CLOSE_JOIN);
+				pst.setInt(1, product_id);
+				result = pst.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.dbClose(rs, pst, conn);
+			}
+			return result;
+		}
 		
+	//CLOSE JOIN (PRODUCT_STATUS -> 모집중)
+			public int openJoin(int product_id) {
+				int result = 0;
+				conn = DBUtil.getConnection();
+				try {
+					pst = conn.prepareStatement(SQL_OPEN_JOIN);
+					pst.setInt(1, product_id);
+					result = pst.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					DBUtil.dbClose(rs, pst, conn);
+				}
+				return result;
+			}
 }

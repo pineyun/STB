@@ -27,4 +27,10 @@ public class MemberService {
 	public int delete(String userId) {
 		return memberDAO.delete(userId);
 	}
+
+
+	public int updatePassword(Member loginMember) {
+		return memberDAO.updatePassword(loginMember);
+	}
 }
+

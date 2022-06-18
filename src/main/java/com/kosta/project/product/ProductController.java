@@ -26,10 +26,12 @@ public class ProductController extends HttpServlet {
 	Product product;
 	Reply reply;
 	ReplyService replyService;
+	ImageService imageService;
 	
 	public void init() throws ServletException{
 		productService = new ProductService();
 		replyService = new ReplyService();
+		imageService = new ImageService();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -64,11 +66,13 @@ public class ProductController extends HttpServlet {
 //				nextPage= "/jsp/board/boardList.jsp";
 			} else if(action.equals("/product/view.do")) {
 				System.out.println("view호출");
-				String productId = request.getParameter("productId");
+				int productId = Integer.parseInt(request.getParameter("productId"));
 				
 				System.out.println(productId);
-				List<Reply> replylist = replyService.replyList(Integer.parseInt(productId));
-				product = productService.view(Integer.parseInt(productId), member.getUserId());
+				
+				List<Reply> replylist = replyService.replyList(productId);
+				product = productService.view(productId, member.getUserId());
+				request.setAttribute("imageList", imageService.getImageList(productId));
 				request.setAttribute("productView", product);
 				request.setAttribute("replyList", replylist);
 				nextPage = "/jsp/board/boardDetail.jsp";
@@ -82,11 +86,11 @@ public class ProductController extends HttpServlet {
 				 * 
 				 * } catch(Exception e) { e.printStackTrace(); }
 				 */
-				String userId = request.getParameter("userId");
+				String userId = member.getUserId();
 				int productId = Integer.parseInt(request.getParameter("boardId"));
 				String content = request.getParameter("content");
 
-				System.out.println(content);
+				System.out.println(userId);
 				reply = new Reply(productId, userId, content);
 				replyService.create(reply);
 

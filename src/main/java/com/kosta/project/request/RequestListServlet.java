@@ -22,18 +22,18 @@ import com.kosta.project.util.UploadFileHelper;
  * Servlet implementation class ProductInsertController
  */
 @WebServlet("/requestList.do")
-public class RequestServlet extends HttpServlet {
+public class RequestListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		RequestService requestService = new RequestService();
 		 
-		//HttpSession session = request.getSession();
-		//Member member = (Member)session.getAttribute("loginMember");
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginMember");
 		
-		Member member = new Member();
-		member.setUserId("admin");
+		//Member member = new Member();
+		//member.setUserId("admin");
 		
 		List<Product> myrequestList = requestService.selectMyRequest(member.getUserId());
 		System.out.println(myrequestList);

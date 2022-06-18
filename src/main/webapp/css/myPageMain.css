@@ -10,6 +10,8 @@ h1 {
 #myPage-container {
 	margin-top: 50px;
 }
+
+
 .myPageBar {
 	
 	width: 150px;
@@ -27,4 +29,9 @@ h1 {
 
 .myPageBar > li:hover {
 	font-weight: 900;
+}
+
+#myPageSession {
+	float: left;
+	height: 100%;
 }

@@ -17,6 +17,7 @@ public class ReplyDAO {
 	static final String ReplyWrite = "INSERT INTO "
 			+ "TBL_REPLY (REPLY_ID, REPLY_DATE, PRODUCT_ID, USER_ID, REPLY_CONTENT)  VALUES (REPLY_SEQ.nextval, sysdate, ?, ?, ?)"
 			+ "";
+	static final String ReplyDelete = "";
 
 	Connection conn;
 	Statement st;
@@ -100,4 +101,15 @@ public class ReplyDAO {
 		return -1;
 	}
 
+	/*
+	 * public int deleteReply(int replyId) {
+	 * 
+	 * Connection conn = null; pst = null; rs = null; try { conn =
+	 * DBUtil.getConnection(); pst = conn.prepareStatement(ReplyWrite);
+	 * pst.setInt(1, reply.getProduct_ID()); return result = pst.executeUpdate(); }
+	 * catch (Exception e) { e.printStackTrace(); } finally { try { if (rs != null)
+	 * rs.close(); if (pst != null) pst.close(); if (conn != null) conn.close(); }
+	 * catch (Exception e2) { e2.printStackTrace(); } } return -1; }
+	 */	
+	
 }
