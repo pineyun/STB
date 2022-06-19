@@ -74,7 +74,7 @@
 					data-productid="${productView.productId}"
 					data-currentNumber="${productView.currentNumber}"
 					data-joinNumber="${productView.joinNumber}"
-					data-productStatus="${productView.productStatus}">조인요청</button>
+					data-productStatus="${productView.productStatus}">조인요청(${productView.currentNumber}/${productView.joinNumber})</button>
 			</div>
 
 
@@ -82,18 +82,19 @@
 
 	</div>
 
-	<div class=board-contents>내용</div>
+	<div class=board-contents></div>
 
 
 	<div class="card">
 		<form>
-			<input type="hidden" id="userId" value="${loginMember.userId}" /> <input
-				type="hidden" id="boardId" value="${productView.productId}" />
+			<input type="hidden" id="userId" value="${loginMember.userId}" /> 
+			<input type="hidden" id="boardId" value="${productView.productId}" />
 			<div class="card-body">
-				<textarea style="width: 90%; display: inline-block;"
-					id="reply-content" class="form-control" rows="1"></textarea>
+				<textarea style="width: 90%; display: inline-block;" 
+				id="reply-content" class="form-control" rows="1"></textarea>
 				<button type="button" style="float: right;" id="btn-reply"
-					class="btn btn-primary">댓글등록</button>
+					class="btn btn-primary">댓글등록
+				</button>
 				<div>
 					비밀글<input type="checkbox" id="btn-secret" value="1">
 				</div>
@@ -347,9 +348,7 @@
 
 					});
 
-	$("#heart2").on(
-			'click',
-			function() {
+	$("#heart2").on('click', function() {
 				var like = $(this).attr("data-like");
 				console.log($("#boardId").val() + like)
 				$.ajax({
@@ -357,20 +356,14 @@
 					type : 'POST',
 					data : {
 						boardId : $("#boardId").val(),
-						"like01" : like
-
-					},
+						"like01" : like},
 					success : function(responseData) {
 						alert(responseData);
 						location.href = "${path}/product/view.do?productId="
-								+ $("#boardId").val();
-					},
+								+ $("#boardId").val();},
 				})
 			});
-
-	$("#heart").on(
-			'click',
-			function() {
+	$("#heart").on('click',function() {
 				var like = $(this).attr("data-like");
 				$.ajax({
 					url : '${path}/like/likeDelete.do',
@@ -378,7 +371,6 @@
 					data : {
 						boardId : $("#boardId").val(),
 						"like01" : like
-
 					},
 					success : function(responseData) {
 						alert(responseData);
@@ -388,9 +380,7 @@
 				})
 			});
 
-	$("#btn-reply").on(
-			'click',
-			function() {
+	$("#btn-reply").on('click', function() {
 				if ($("#btn-secret").is(":checked") == true) {
 					var secretData = 1;
 				} else {

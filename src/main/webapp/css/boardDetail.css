@@ -172,12 +172,12 @@ img {
 }
 
 .board-wrapper .title-wrapper #item-info #item-buy button {
-	width: 220px;
+	width: 255px;
 	height: 56px;
 	color: white;
 	font-weight: bold;
 	font-size: 25px;
-	border-radius: 5px;
+	border-radius: 15px;
 	border-width: initial;
 	border-style: none;
 	border-color: initial;
