@@ -28,7 +28,7 @@ public class UpdatePasswordController extends HttpServlet {
 	}
 
 	/**
-	 * ºñ¹Ğ¹øÈ£ º¯°æÃ³¸®
+	 * ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ì²˜ë¦¬
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String location = request.getContextPath();
@@ -41,24 +41,25 @@ public class UpdatePasswordController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
-		// ÀÔ·Â ºñ¹Ğ¹øÈ£ ÀÏÄ¡¿©ºÎ
+		// ì…ë ¥ ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ì—¬ë¶€
 		if(oldPassword.equals(loginMember.getUserPassword())) {
 			
-			// ±âÁ¸ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÑ °æ¿ì¸¸ ½Å±Ôºñ¹Ğ¹øÈ£·Î ¾÷µ¥ÀÌÆ®
+			// ê¸°ì¡´ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•œ ê²½ìš°ë§Œ ì‹ ê·œë¹„ë°€ë²ˆí˜¸ë¡œ ì—…ë°ì´íŠ¸
 			loginMember.setUserPassword(newPassword);
 			result = service.updatePassword(loginMember);
 			msg = (result > 0) ? 
-					"ºñ¹Ğ¹øÈ£¸¦ ¼º°øÀûÀ¸·Î º¯°æÇß½À´Ï´Ù." : "ºñ¹Ğ¹øÈ£¸¦ º¯°æ¿¡ ½ÇÆĞÇß½À´Ï´Ù.";
-			location += "/jsp/mypage.jsp";
+					"ë¹„ë°€ë²ˆí˜¸ë¥¼ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½í–ˆìŠµë‹ˆë‹¤." : "ë¹„ë°€ë²ˆí˜¸ë¥¼ ë³€ê²½ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.";
+			location += "/jsp/index.jsp";
 		}
 		else {
-			msg = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";				
+			msg = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";				
 			location += "/jsp/updatePassword";
 		}
-		// »ç¿ëÀÚ °æ°íÃ¢
+		// ì‚¬ìš©ì ê²½ê³ ì°½
 		session.setAttribute("msg", msg);
 		response.sendRedirect(location);
 	}
 
 }
+
 

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import com.kosta.project.member.vo.Member;
 import com.kosta.project.product.Product;
 import com.kosta.project.product.ProductService;
@@ -55,6 +57,7 @@ public class ProductInsertServlet extends HttpServlet {
 			 
 			if(key.equals("title")) product.setproductTitle(mapParams.get("title"));
 			if(key.equals("content")) product.setproductContent(mapParams.get("content"));
+			if(key.equals("product_id")) product.setproductContent(mapParams.get("product_id"));
 		}
 		
 		HttpSession session = request.getSession();
@@ -69,9 +72,8 @@ public class ProductInsertServlet extends HttpServlet {
 		List<String> imageList = (List<String>)map.get("photos");
 		int imgresult = pService.insertProductImages(pid, imageList);
 
-		
-			
 		request.setAttribute("message", result>0? "게시 성공" : "게시 실패");
+		
 		String location = request.getContextPath() + "/index";
 		response.sendRedirect(location);
 

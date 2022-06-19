@@ -25,9 +25,12 @@ public class ManageRequestServlet extends HttpServlet {
 		int currentNumber = Integer.parseInt(request.getParameter("currentNumber"));
 		int joinNumber = Integer.parseInt(request.getParameter("joinNumber"));
 		String productStatus = request.getParameter("productStatus");
-		if (manage.equals("cancel")) {
+		
+		//게시자
+		if (manage.equals("refuse")) {
+			
 			if (productStatus != "모집중") {
-				System.out.println(productStatus);
+				
 				requestService.cancelRequest(requestid, productid);
 				requestService.decreaseCurrentNumber(productid);
 				requestService.openJoin(productid);
@@ -35,7 +38,7 @@ public class ManageRequestServlet extends HttpServlet {
 			} else {
 				
 				if (currentNumber >= 2) {
-					
+
 					requestService.cancelRequest(requestid, productid);
 					requestService.decreaseCurrentNumber(productid);
 					
@@ -60,6 +63,32 @@ public class ManageRequestServlet extends HttpServlet {
 				
 			}
 		}
+		
+		
+		//신청자
+		
+		if (manage.equals("cancel")) {
+			if (currentNumber <= 1 ) {
+
+				requestService.cancelRequest(requestid, productid);
+				
+			} else {
+				requestService.cancelRequest(requestid, productid);
+				requestService.decreaseCurrentNumber(productid);
+				
+				if (productStatus != "모집중") {
+
+					requestService.cancelRequest(requestid, productid);
+					requestService.decreaseCurrentNumber(productid);
+					requestService.openJoin(productid);
+					
+				}
+
+			}
+
+		}
+		
+		
 
 		response.sendRedirect("requestList.do");
 	}

@@ -15,5 +15,8 @@ public class ReplyService {
 		return replyDAO.writeReply(reply);
 	}
 	
+	public int delete(int replyId, String userId) {
+		return replyDAO.deleteReply(replyId, userId);
+	}
 	
 }

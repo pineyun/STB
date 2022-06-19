@@ -20,6 +20,7 @@ public class MemberDAO {
 	static final String SQL_SELECT_NICK = "select * from tbl_user where nickname=?";
 	static final String SQL_DELETEMEMBER = "delete from tbl_user where user_id=?";
 	static final String SQL_UPDATEPASSWORD = "update tbl_user set user_pw=? where user_id=?";
+	static final String SQL_UDATECLEAR =  "update tbl_user set user_pw = ? where user_id = ?";
 	Connection conn;
 	Statement st;
 	PreparedStatement pst;
@@ -140,11 +141,8 @@ public class MemberDAO {
 		try {
 			// �̿ϼ� ������ ��ü����
 			pst = conn.prepareStatement(SQL_UPDATEPASSWORD);
-			// ������ �̿ϼ�
 			pst.setString(1, member.getUserPassword());
 			pst.setString(2, member.getUserId());
-			//���������� : �ϼ��� ������ ������ �ִ� pstmt����(�Ķ���� ����)
-			//DML�� executeUpdate()
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,7 +152,49 @@ public class MemberDAO {
 		return result;
 	}
 
+	public Member selectMember( String memberId) {
+		ResultSet rset = null;
+		Member member = null;
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(SQL_SELECT_BYID);
+			pst.setString(1,memberId);
+			rs = pst.executeQuery();
 
+			while (rs.next()) {
+				member = makeEmp(rs);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(rs, pst, conn);
+		}
+
+		return member;
+	}
+
+	public int insertPassword(Member member) {
+		int result = 0;
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(SQL_UDATECLEAR);
+			pst.setString(1, member.getUserPassword());
+			pst.setString(2, member.getUserId());
+
+			result = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(rs, pst, conn);
+		}
+
+		return result;
+	}
+	
 
 }
+
+	
 

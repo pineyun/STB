@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입 화면 샘플 - Bootstrap</title>
+  <title>N분의1 - 회원가입</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -48,6 +48,11 @@
     }
     #message{
     color:red;
+    font-size:10px;
+    
+    }
+    #message2{
+ 	color:red;
     font-size:10px;
     
     }
@@ -174,7 +179,6 @@ width:130;height:30;  /*--버튼 크기---*/
   </div>
   </div>
   </section>
-	<jsp:include page="footer.jsp"></jsp:include>
 
 
 
@@ -230,8 +234,9 @@ width:130;height:30;  /*--버튼 크기---*/
     		});
     	});
     });
-    
+    var checkIdDuplicateFlag = 0;
     $(function (){
+    	
     	$("#checkIdDuplicate").click(function(){
     		var userId = $("#userId").val();
 			var emailId =  $("#emailId").val();
@@ -240,14 +245,16 @@ width:130;height:30;  /*--버튼 크기---*/
     			$("#userId").focus();
     			return;
     		}
-    		alert($(emailId));
+    		//alert($(emailId));
     		$.ajax({
     			url:"IdFindCheck",
     			data:{"userId":userId,"emailId":emailId},
     			type:"get",
     			success: function(responseData){
     				//중복:1, 중복안됨:0
-    				$("#message2").html(responseData==1?"이미 존재하는 아이디입니다.":"사용가능합니다.");
+    				var result = responseData==1?"이미 존재하는 아이디입니다.":"사용가능합니다.";
+    				$("#message2").html(result);
+    				if(responseData!=1) checkIdDuplicateFlag=1;
     			},
     			fail:function(){}
     		});
@@ -257,12 +264,16 @@ width:130;height:30;  /*--버튼 크기---*/
 
     $("#validation-form").submit((e) => {
   
-    	
+    	if(checkIdDuplicateFlag==0){
+    		alert("아이디중복체크를 하세요!");
+    		return false;
+    	}
     
     	//password
     	const $password = $("#userPassword");
     	const $passwordCheck = $("#passwordCheck");
-    	
+        const $emailId =  $("#emailId").val();
+    	const $checkIdDuplicate = $("#checkIdDuplicate").val();
     	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
     		alert("유효한 패스워드를 입력하세요.");
     		return false;
@@ -272,8 +283,17 @@ width:130;height:30;  /*--버튼 크기---*/
     		return false;
     	}
     	
+    	 if($emailId == ""||$emailId=="directly"||$emailId == null ){
+    	   alert("이메일을 선택하세요");
+    	 	return false;   	
+    	 } 
+    	 if(checkIdDuplicate)
     	return true;
+    
+    	    
     });
+   
+    
   </script>
 </body>
 

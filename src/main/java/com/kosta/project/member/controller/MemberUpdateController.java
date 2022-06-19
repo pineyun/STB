@@ -39,7 +39,7 @@ public class MemberUpdateController extends HttpServlet {
 		Member member = new Member(userId,phone);
 		System.out.println("memberUpdateServlet " + member);
 		
-		int result = updateService.updateMember(member);
+		int result = memberService.updateMember(member);
 		String msg = (result > 0) ? "회원정보 수정 성공" : "회원정보 수정 실패";
 	
 		if(result > 0) {
@@ -48,7 +48,7 @@ public class MemberUpdateController extends HttpServlet {
 		}
 		
 		
-		String location = request.getContextPath() + "/myPage/myPageMain";
+		String location = request.getContextPath() + "/jsp/mypage.jsp";
 		response.sendRedirect(location);
 	}
 

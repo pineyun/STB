@@ -72,6 +72,7 @@ public class ProductController extends HttpServlet {
 				
 				List<Reply> replylist = replyService.replyList(productId);
 				product = productService.view(productId, member.getUserId());
+				request.setAttribute("memberSession", member);
 				request.setAttribute("imageList", imageService.getImageList(productId));
 				request.setAttribute("productView", product);
 				request.setAttribute("replyList", replylist);
@@ -89,19 +90,17 @@ public class ProductController extends HttpServlet {
 				String userId = member.getUserId();
 				int productId = Integer.parseInt(request.getParameter("boardId"));
 				String content = request.getParameter("content");
+				int secret = Integer.parseInt(request.getParameter("secret"));
 
 				System.out.println(userId);
-				reply = new Reply(productId, userId, content);
+				reply = new Reply(productId, userId, content, secret);
 				replyService.create(reply);
 
 				PrintWriter out = response.getWriter();
 				out.print("OK");
 				return;
-			} else if(action.equals("/deleteReply.do")) {
-				String userId = request.getParameter("userId");
-				int productId = Integer.parseInt(request.getParameter("boardId"));
-				int replyId = Integer.parseInt(request.getParameter("replyId"));
-			}
+			} 
+			
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 		} catch(Exception e) {
