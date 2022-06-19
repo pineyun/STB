@@ -3,27 +3,27 @@
 /* theadC : #fab90126 */
 
 h1 {
-	font-size: 32px;
+	font-size: 28px;
 	font-weight: 900;
 }
 
 #myPage-container {
-	margin-top: 50px;
+	margin-top: 40px;
+	display: flex;
 }
 
 
 .myPageBar {
 	
-	width: 150px;
-	height: 500px;
+	width: 140px;
+	height: 550px;
 	border-right : 1px solid #ececec;
-	float: left;
-	margin-right: 80px;
+	margin-right: 40px;
 	
 }
 
 .myPageBar > li {
-	height: 45px;
+	height: 40px;
 	padding: 5px;
 }
 
@@ -32,6 +32,5 @@ h1 {
 }
 
 #myPageSession {
-	float: left;
 	height: 100%;
 }

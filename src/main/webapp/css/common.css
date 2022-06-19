@@ -150,6 +150,15 @@ header {
 
 /*header center*/
 
+input[type="text"], textarea {
+	background-color: #FFFFE0;
+}
+
+input[type="tel"], textarea {
+	background-color: #FFFFE0;
+}
+
+
 #header_center {
 	float: left;
 	margin-top: 17px;
@@ -225,7 +234,7 @@ header {
 .nonelistresults{
 	display: inline-block;
 	width: 100%;
-	margin-top: 200px;
+	margin-top: 165px;
 	text-align: center;
 }
 

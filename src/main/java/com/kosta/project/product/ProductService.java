@@ -2,8 +2,6 @@ package com.kosta.project.product;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.kosta.project.product.vo.CategoryVO;
 
 public class ProductService {

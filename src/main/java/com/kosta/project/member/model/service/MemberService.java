@@ -32,5 +32,16 @@ public class MemberService {
 	public int updatePassword(Member loginMember) {
 		return memberDAO.updatePassword(loginMember);
 	}
+
+
+	public Member memberCall(String memberId) {
+		
+		return  memberDAO.selectMember(memberId);
+	}
+
+
+	public int insertPassword(Member m) {
+		return memberDAO.insertPassword(m);
+	}
 }
 
